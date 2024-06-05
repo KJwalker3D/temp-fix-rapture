@@ -1,0 +1,113 @@
+{
+  "ecs7": true,
+  "runtimeVersion": "7",
+  "display": {
+    "title": "Rapture Art Gallery",
+    "description": "Rapture Art Gallery, including Hope Gallery, Von's Lounge and Club Von. Created by Low Poly Models for VonMises.",
+    "navmapThumbnail": "images/scene-thumbnail.png",
+    "favicon": "favicon_asset"
+  },
+  "owner": "",
+  "contact": {
+    "name": "VonMises by LowPolyModels",
+    "email": ""
+  },
+  "main": "bin/index.js",
+  "tags": [],
+  "scene": {
+    "parcels": [
+      "-89,-66",
+      "-88,-66",
+      "-88,-65",
+      "-88,-64",
+      "-88,-63",
+      "-89,-63",
+      "-89,-64",
+      "-89,-65"
+    ],
+    "base": "-88,-66"
+  },
+  "spawnPoints": [
+    {
+      "name": "spawn1",
+      "default": true,
+      "position": {
+        "x": [
+          13
+        ],
+        "y": [
+          4
+        ],
+        "z": [
+          32
+        ]
+      },
+      "cameraTarget": {
+        "x": 0,
+        "y": 5,
+        "z": 32
+      }
+    }
+  ],
+  "vlm": {
+    "sceneId": "727c5774-bde4-490a-bee6-4bafbecc4460"
+  },
+  "requiredPermissions": [
+    "ALLOW_TO_TRIGGER_AVATAR_EMOTE",
+    "ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE",
+    "ALLOW_MEDIA_HOSTNAMES"
+  ],
+  "allowedMediaHostnames": [
+    "bafybeif6edc3d4r5uoip33pqmixvzaum5y7olspoa55tj2bo4mksfhulva.ipfs.nftstorage.link",
+    "bafybeignpuorywvraeor5l5ryx5sg47ao2entfcuy4ahdtqrv6irwl5hle.ipfs.nftstorage.link",
+    "bafybeihs42jqr3nk746ddfydq6i7tar5en5slz46ooceucdhtyrz3npce4.ipfs.nftstorage.link",
+    "bafybeiec55zhttqmysigwmya7x3sv4rvdz7a73jlhdnezfozvrovtcua4a.ipfs.nftstorage.link",
+    "bafybeifjpi3xl4pe3fzhzk3gaicbix2kuohnpwax3ipkcroajbhx5bix64.ipfs.nftstorage.link",
+    "bafybeihiklth64vrmwnvmzenz3icbuv6h42bbo27dkvmbca35pzlhgt4um.ipfs.nftstorage.link",
+    "bafybeidndq3rvc2gp7tduwfwon52rmaiduquyzr57dpqhjck7faucfamee.ipfs.nftstorage.link",
+    "bafybeigtsb7njmujfpx4taqaauddmfsrs5azu7sr5jf77jfrc2xegituba.ipfs.nftstorage.link",
+    "bafybeid2wei5iisr744oflmbhgdr3mzjkaqo6dop25aonckfsblpvou62u.ipfs.nftstorage.link",
+    "bafybeigtk6k2f4mevytsn36hmu4a2hslfv7z6s2o3s2basqiu2muijbkrm.ipfs.nftstorage.link",
+    "bafybeigsorvbab3eeyokb4kxqbydu3otatufb6cia37kieyo2mwp6wgik4.ipfs.nftstorage.link",
+    "bafybeidhhzqwcxomdg7mifw5rt33pxfsuutrpenomcnbvdslul3h3wblbq.ipfs.nftstorage.link",
+    "bafybeiczdnms677w4rxuybqahygoqp5wyupagta23bmyowjyxth3fa6vli.ipfs.nftstorage.link",
+    "bafybeigdfvbu5ifhiborohqsxlkfax3jo3om2tt2wksdict2wm2m5y4osy.ipfs.nftstorage.link",
+    "bafybeiegataoass62silkzs27zfh36um7sdbzucho56imctsdou5rajhfu.ipfs.nftstorage.link",
+    "bafybeieim7qxmftgrka3gc3yxlgu5rwyyxm3hhdfubqknmbchmyclwitky.ipfs.nftstorage.link",
+    "bafybeigz6lduipmuo77exqfgtjlpotf3jxcvhfwoo2zp2tklmky2qz5qzu.ipfs.nftstorage.link",
+    "bafybeidh7mljpr5xwhusr42lie5aikqhdvcpt2vauspradgaosyqrgyuhe.ipfs.nftstorage.link",
+    "bafybeiax6y7pbzod7iqhdqt5utjncw43bl3zhxn3lmljaeot3bavotnpze.ipfs.nftstorage.link",
+    "bafybeicz6zacdncya6hhswjphbmhddty4juh2xm3qml4l7urbaww6dcpru.ipfs.nftstorage.link",
+    "bafybeicfnjsdyw6asi3exwc6fyrrzaxczvqzspor6rnhu3rscwfu2pcie4.ipfs.nftstorage.link",
+    "bafybeiggnjiuhhgdiq3b7rsceqogf4mtorpwmgl7fkhsea56acqljukgiq.ipfs.nftstorage.link",
+    "bafybeida4yopnjagjng2z7lu7k3mz6qxtig3txqkiyoosptzztaqzazefa.ipfs.nftstorage.link",
+    "bafybeigt6jpiovehsnahwalf2jabeulth3mdxv4qnhdbf2olf4cttmqjk4.ipfs.nftstorage.link",
+    "bafybeibj3455rnap3wxqd4cfi6mzmaycjryds3r6omojfdhrltyporvesy.ipfs.nftstorage.link",
+    "bafybeidcsfaealvs6njl7npapdb3nptk2sttchcobr5fp6tzv2dscwb7ka.ipfs.nftstorage.link",
+    "bafybeigldlf2va2yaroou5w3idwopfxa7kzcqkda33cxuqpf3klx53jaze.ipfs.nftstorage.link",
+    "bafybeig3jfdcrr7gfkxjarskwubktmyl6c2ikvj4o2dotqmjbynh5wwb7y.ipfs.nftstorage.link",
+    "bafybeiewunae46ceam3ogfujddt5f5sihtcpvvn666zzzpczasepsck3ou.ipfs.nftstorage.link",
+    "bafybeidltzbituwq25eetc73o4tu46d3hvhgjoz424nw4dgrxgoqyxf2ue.ipfs.nftstorage.link",
+    "bafybeigimb4xx56466n2k6iczsy3vux62euhugab2pxx7tfi7avmrgfztq.ipfs.nftstorage.link",
+    "bafybeihz2amle3qcchcwsti3oigirh37abzwx3q2dcw6wh5ixy3vqupqwe.ipfs.nftstorage.link",
+    "bafybeiexydfftr3x27epbge3v35mxv4xuio55yanlh3ojdanw3xlukwp7u.ipfs.nftstorage.link",
+    "bafybeie37r632dcos265c3we3gjrjcf2rpynx35alkvzdcprnkvqvyk76i.ipfs.nftstorage.link",
+    "bafybeicns3zl3qvdtn5srcs5inbieuip3c4a6hkwsxepqsjjpwqfgnen2q.ipfs.nftstorage.link",
+    "bafybeia3qhmlqlujrhb2rcyxvf3oxshrij4vv33vtktfwegh2wsyj4kybq.ipfs.nftstorage.link",
+    "bafybeifyjdht62j5cflqv7eoco5nrju6ytyshdqu6doxozirga3n6kus4e.ipfs.nftstorage.link",
+    "bafybeihuy2rqhfl5dvpubpfsnsan6hpbmja52vcexokq3ieuiusmumoc34.ipfs.nftstorage.link",
+    "bafybeie73fqzwhfggh2tigj3rlvcedmdwoohkayawl23h3g4qjrtf5qnby.ipfs.nftstorage.link",
+    "bafybeie2m472kp4vblv7nqnwoe5rzki5f6zod2w6vloqbptdbmb2nmc3o4.ipfs.nftstorage.link",
+    "bafybeig2wqtrny265lo6esrg5sjdpnxicaaiobxk457nxk43wx7yfxdk2m.ipfs.nftstorage.link",
+    "bafybeigpz55adjfbb62rk4gz5yrnphc3lsdvdyzhcyx5gjshnnxrenhxwe.ipfs.nftstorage.link",
+    "bafybeihhnlcum5zx6dlll3z5sufka7sauzaw7ioxx2mttpi7o5kmocu26u.ipfs.nftstorage.link",
+    "player.vimeo.com",
+    "player.vimeo.com/external/774332906.m3u8?s=4d32ed0e68a03950b640dfeb6df1228eb64a0bb3"
+  ],
+  
+  
+  "featureToggles": {
+    "voiceChat": "enabled",
+    "portableExperiences": "enabled"
+  }
+}
