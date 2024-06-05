@@ -1,7 +1,7 @@
 import { UiCanvasInformation, engine } from "@dcl/ecs";
 import { Color4, Vector3 } from "@dcl/ecs-math";
 import { currentArtworkId, findArtworkById, hoverVisible, toggleHover } from "./Art/artHover";
-import { wordWrap, tieredModalTextWrapScale, breakLines, tieredFontScale } from "./helperFunctions";
+import { wordWrap, tieredModalTextWrapScale, breakLines, tieredFontScale, canvasInfo } from "./helperFunctions";
 import ReactEcs, { Label, ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
 
 
@@ -32,14 +32,14 @@ export function artDetailsUI() {
       return (
         <UiEntity key={'art-main'}
           uiTransform={{
-            height: `${UiCanvasInformation.get(engine.RootEntity).height * .15}`,
-            width: `${UiCanvasInformation.get(engine.RootEntity).width * .1}`,
+            height: `${canvasInfo.height * .15}`,
+            width: `${canvasInfo.width * .1}`,
             positionType: 'absolute',
             position: `5% 0 0 90%`,
             flexDirection: 'column',
             alignItems: 'center',
-            maxHeight: `${UiCanvasInformation.get(engine.RootEntity).height * .15}`,
-            maxWidth: `${UiCanvasInformation.get(engine.RootEntity).width * .1}`,
+            maxHeight: `${canvasInfo.height * .15}`,
+            maxWidth: `${canvasInfo.width * .1}`,
 
 
           }}
@@ -60,7 +60,7 @@ export function artDetailsUI() {
               width: 'auto',
               height: 'auto',
               alignSelf: 'stretch',
-              margin: `-10px 0px 0px ${UiCanvasInformation.get(engine.RootEntity).width * .0075}`,
+              margin: `-10px 0px 0px ${canvasInfo.width * .0075}`,
               positionType: 'absolute',
               position: '-25% 0 0 0%',
             }}
@@ -78,7 +78,7 @@ export function artDetailsUI() {
               width: 'auto',
               height: 'auto',
               alignSelf: 'stretch',
-              margin: `10px 0px 0px ${UiCanvasInformation.get(engine.RootEntity).width * .0075}`,
+              margin: `10px 0px 0px ${canvasInfo.width * .0075}`,
               positionType: 'absolute',
               position: '15% 0 0 0',
             }}
