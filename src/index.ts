@@ -1,7 +1,7 @@
 import { engine } from "@dcl/sdk/ecs";
 import { setupUi } from './ui'
 import { ElevatorModule, createElevator } from './elevator'
-import { addRaptureEmoters, addRooftopEmoters, addVonsEmoters } from './emoteFurnis'
+import {  addVonsEmoters } from './emoteFurnis'
 import { createAllLazyAreas } from './lazyLoading'
 import { artHoverSystem, changeArtHoverSystem, createArtHovers } from './Art/artHover'
 import { createBuilding } from "./components";
@@ -16,9 +16,9 @@ export function main() {
   createElevator()
   const elevatorButtons = ElevatorModule.initializeElevatorButtons();
   const callButtons = ElevatorModule.initializeElevatorCallButtons();
-  addRaptureEmoters();
-  addVonsEmoters();
-  addRooftopEmoters()
+  //addRaptureEmoters();
+  //addVonsEmoters();
+  //addRooftopEmoters()
   createAllLazyAreas()
   createArtHovers()
   engine.addSystem(artHoverSystem)

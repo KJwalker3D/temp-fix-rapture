@@ -4,11 +4,12 @@ import * as utils from '@dcl-sdk/utils'
 import { createVideoArt, videoCollection } from './Art/videoArt'
 import { createImageArt, imageArtCollection } from './Art/imageArt'
 import { createKineticArt, kineticArtCollection } from './Art/kineticArt'
-import { addBartenderManager, addDanceManager, removeBartenderNpcs, removeDanceNpcs, spawnNPCsBasedOnRoom } from './npcs'
+import { addBartenderManager, addDanceManager, addGalleryManager_1, addGalleryManager_2, addSitManager, removeBartenderNpcs, removeDanceNpcs, removeGalleryNpcs_1, removeGalleryNpcs_2, removeSitNpcs, spawnNPCsBasedOnRoom } from './npcs'
 import { createStream, stopStream, toggleStream } from './playlist'
 import { toggleFrontScreens } from './frontPosters'
 import { createDJ, removeDJ } from './dj'
 import { isParty } from './config'
+import { addRaptureEmoters, addRooftopEmoters, addVonsEmoters, toggleRaptureEmoters, toggleRooftopoEmoters, toggleVonsEmoters } from './emoteFurnis'
 
 
 export let scene1active = true
@@ -75,18 +76,25 @@ export async function createLazyArea(position: Vector3, scale: Vector3, parentPo
    
         if (id === 1) {
           toggleFrontScreens()
+          addGalleryManager_1()
+          addRaptureEmoters()
         }
         if (id === 3) {
           addBartenderManager()
+          addGalleryManager_2()
+          addVonsEmoters()
         } if (id === 4 && !isParty) {
           await toggleStream()
           console.log('enter roof no party')
           addDanceManager()
           createDJ()
+          addRooftopEmoters()
+          //addSitManager()
         } else if (id === 4 && isParty) {
           stopStream()
           addDanceManager()
           createDJ()
+          addRooftopEmoters()
           console.log('enter roof party')
 
         }
@@ -98,6 +106,13 @@ export async function createLazyArea(position: Vector3, scale: Vector3, parentPo
 
       removeBartenderNpcs()
       removeDanceNpcs()
+      removeGalleryNpcs_1()
+      removeGalleryNpcs_2()
+      toggleRaptureEmoters()
+      toggleVonsEmoters()
+      toggleRooftopoEmoters()
+      //removeSitNpcs()
+      //removeDanceNpcs()
 
       for (const videoArt of createdVideos) {
         engine.removeEntity(videoArt)

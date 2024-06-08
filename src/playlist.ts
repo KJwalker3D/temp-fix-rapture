@@ -29,7 +29,7 @@ export async function toggleStream() {
     AudioStream.createOrReplace(audioStreamEntity, {
       url: 'https://strw3.openstream.co/1487?aw_0_1st.collectionid%3D4682%26stationId%3D4682%26publisherId%3D1511%26k%3D1708457720',
       playing: true,
-      volume: 0.8,
+      volume: 0.3,
     });
     streamisJazz = false;
   } else if (!streamisJazz && !isParty) {

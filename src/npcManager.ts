@@ -7,7 +7,9 @@ import *  as  npc from 'dcl-npc-toolkit'
 class NPC {
 
     lostNpc: any
+    sitNpc: any
     lostStartingPos: TransformType = { position: Vector3.create(-0.5, 34.8, 59.75), rotation: Quaternion.fromEulerDegrees(0, 180, 0), scale: Vector3.One() }
+
     lostFollowPath: Vector3[] = []
     lostCanTalk: boolean = true// false
     lostToTalaSystemInstance: any
@@ -24,7 +26,6 @@ class NPC {
                 type: npc.NPCType.AVATAR,
                 onActivate: () => {
                     if (this.lostCanTalk) { }
-                    //npc.talk(this.lostNpc, lostDialog)
                 },
                 coolDownDuration: 3,
                 reactDistance: 2
@@ -32,6 +33,7 @@ class NPC {
         )
         AvatarShape.getMutable(this.lostNpc).name = ""
     }
+
 
 }
 
