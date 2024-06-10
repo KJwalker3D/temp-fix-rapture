@@ -10,7 +10,7 @@ import { createFrontScreens } from "./frontPosters";
 import * as utils from '@dcl-sdk/utils';
 import VLM from "vlm-dcl";
 import { isParty } from "./config";
-import { showSpiral } from "./Art/lightShow";
+import { toggleSpiral } from "./Art/lightShow";
 
 
 export function main() {
@@ -32,5 +32,6 @@ export function main() {
   utils.timers.setTimeout(() => {
     setupUi()
   }, 7000)
- // showSpiral()
+  engine.addSystem(toggleSpiral)
+//toggleSpiral()
 }

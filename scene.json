@@ -109,10 +109,6 @@
   "featureToggles": {
     "voiceChat": "enabled",
     "portableExperiences": "enabled"
-  },
-  
-    "worldConfiguration": {
-      "name": "kjwalker.dcl.eth"
-    }
+  }
   
 }

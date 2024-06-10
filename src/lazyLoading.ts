@@ -80,7 +80,7 @@ export async function createLazyArea(position: Vector3, scale: Vector3, parentPo
           addRaptureEmoters()
         }
         if (id === 3) {
-          addBartenderManager()
+         // addBartenderManager()
           addGalleryManager_2()
           addVonsEmoters()
         } if (id === 4 && !isParty) {
@@ -104,7 +104,7 @@ export async function createLazyArea(position: Vector3, scale: Vector3, parentPo
     () => {
       console.log('LEFT')
 
-      removeBartenderNpcs()
+      //removeBartenderNpcs()
       removeDanceNpcs()
       removeGalleryNpcs_1()
       removeGalleryNpcs_2()

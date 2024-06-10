@@ -33,6 +33,8 @@ const SITTING_POSITIONS = [
 const GALLERY_POSITIONS_2 = [
     { position: Vector3.create(1, 19.5, 55), rotation: Quaternion.fromEulerDegrees(0, -50, 0), scale: Vector3.One() },
     { position: Vector3.create(10, 19.5, 43), rotation: Quaternion.fromEulerDegrees(0, 90, 0), scale: Vector3.One() },
+    { position: Vector3.create(-0.5, 19.5, 60), rotation: Quaternion.fromEulerDegrees(0, 180, 0), scale: Vector3.One() }
+
 
 ]
 
@@ -252,6 +254,7 @@ export function removeGalleryNpcs_1() {
 }
 
 export function addGalleryManager_2() {
+    //add bartender in here
     GALLERY_POSITIONS_2.forEach((pos, index) => {
         const npc = createNPC(pos, BODY_SHAPES[index % BODY_SHAPES.length], DANCE_WEARABLES[index], HAIR_COLORS[index % HAIR_COLORS.length], SKIN_COLORS[index % SKIN_COLORS.length])
         galleryNpcs_2.push(npc)
