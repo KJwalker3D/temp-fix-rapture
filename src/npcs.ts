@@ -1,6 +1,5 @@
 import { Color3, Color4, Quaternion, Vector3 } from '@dcl/sdk/math';
 import { AvatarShape, Entity, Transform, engine } from '@dcl/sdk/ecs';
-import { NPCManager } from './npcManager';
 
 // Constants for configuration
 const BARTENDER_POSITIONS = [
@@ -16,7 +15,8 @@ const DANCE_POSITIONS = [
     { position: Vector3.create(3, 35.45, 31), rotation: Quaternion.fromEulerDegrees(0, 10, 0), scale: Vector3.One() },
     { position: Vector3.create(1, 35.45, 32), rotation: Quaternion.fromEulerDegrees(0, -50, 0), scale: Vector3.One() },
     { position: Vector3.create(-1, 35.45, 34.5), rotation: Quaternion.fromEulerDegrees(0, 95, 0), scale: Vector3.One() },
-    { position: Vector3.create(2, 35.45, 26.25), rotation: Quaternion.fromEulerDegrees(0, -95, 0), scale: Vector3.One() }
+    { position: Vector3.create(2, 35.45, 26.25), rotation: Quaternion.fromEulerDegrees(0, -95, 0), scale: Vector3.One() },
+    { position: Vector3.create(-0.5, 34.8, 59.75), rotation: Quaternion.fromEulerDegrees(0, 180, 0), scale: Vector3.One() }
 ];
 
 const GALLERY_POSITIONS_1 = [
@@ -174,13 +174,16 @@ const npcArrays: Entity[][] = [[], [], [], []];
 
 // Helper functions
 function createNPC(positionData: any, bodyShape: string, wearables: string[], hairColor: Color4, skinColor: Color4): Entity {
+    if (!Array.isArray(wearables)) {
+        console.error('wearables is not an array:', wearables);
+    }
     const entity = engine.addEntity();
     const av = AvatarShape.createOrReplace(entity);
     Transform.createOrReplace(entity, positionData);
     av.bodyShape = bodyShape;
     av.hairColor = hairColor;
     av.skinColor = skinColor;
-    av.wearables = wearables;
+    av.wearables = Array.isArray(wearables) ? wearables: [];
     av.name = "";
     return entity;
 }
@@ -189,12 +192,11 @@ function startNpcDance() {
     danceNpcs.forEach((e, index) => {
         const av = AvatarShape.getMutable(e);
         av.expressionTriggerId = DANCE_MOVES[Math.floor(Math.random() * DANCE_MOVES.length)];
-        av.wearables = DANCE_WEARABLES[index];
+        av.wearables = Array.isArray(DANCE_WEARABLES[index]) ? DANCE_WEARABLES[index]: [];
         av.skinColor = SKIN_COLORS[index % SKIN_COLORS.length];
         av.hairColor = HAIR_COLORS[index % HAIR_COLORS.length];
         av.bodyShape = BODY_SHAPES[index % BODY_SHAPES.length];
     });
-    AvatarShape.getMutable(NPCManager.lostNpc).expressionTriggerId = "dance";
 }
 
 const BARTENDER_WEARABLES: string[] = [
@@ -270,7 +272,6 @@ export function addSitManager() {
         const av = AvatarShape.getMutable(npc)
         av.expressionTriggerId = CUSTOM_EMOTES[index % CUSTOM_EMOTES.length]
     })
-    AvatarShape.getMutable(NPCManager.sitNpc).expressionTriggerId = "dance";
 }
 
 export function removeSitNpcs() {
