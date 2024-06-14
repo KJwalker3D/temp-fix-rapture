@@ -19,14 +19,23 @@ const DANCE_POSITIONS = [
     { position: Vector3.create(-0.5, 34.8, 59.75), rotation: Quaternion.fromEulerDegrees(0, 180, 0), scale: Vector3.One() }
 ];
 
+
+
 const GALLERY_POSITIONS_1 = [
     { position: Vector3.create(1, 1, 29), rotation: Quaternion.fromEulerDegrees(0, -50, 0), scale: Vector3.One() },
     { position: Vector3.create(3, 1, 45), rotation: Quaternion.fromEulerDegrees(0, 45, 0), scale: Vector3.One() },
     { position: Vector3.create(-10, 1, 10), rotation: Quaternion.fromEulerDegrees(0, -140, 0), scale: Vector3.One() },
 ];
 
+//update to drink positions 
 const SITTING_POSITIONS = [
-    { position: Vector3.create(1, 50.5, 29), rotation: Quaternion.fromEulerDegrees(0, -50, 0), scale: Vector3.One() },
+    { position: Vector3.create(-8, 34.8, 21), rotation: Quaternion.fromEulerDegrees(0, -50, 0), scale: Vector3.One() },
+    { position: Vector3.create(-10, 34.8, 22), rotation: Quaternion.fromEulerDegrees(0, 180-50, 0), scale: Vector3.One() },
+    { position: Vector3.create(3.8, 34.8, 21), rotation: Quaternion.fromEulerDegrees(0, -45, 0), scale: Vector3.One() },
+    { position: Vector3.create(6, 34.8, 22), rotation: Quaternion.fromEulerDegrees(0, -50, 0), scale: Vector3.One() },
+    { position: Vector3.create(-1.2, 34.8, 46.5), rotation: Quaternion.fromEulerDegrees(0, 180-50, 0), scale: Vector3.One() },
+    { position: Vector3.create(1.2, 34.8, 46.5), rotation: Quaternion.fromEulerDegrees(0, -50, 0), scale: Vector3.One() },
+    { position: Vector3.create(6, 34.8, 43), rotation: Quaternion.fromEulerDegrees(0, -90, 0), scale: Vector3.One() },
 
 ]
 
@@ -199,6 +208,13 @@ function startNpcDance() {
         av.hairColor = HAIR_COLORS[index % HAIR_COLORS.length];
         av.bodyShape = BODY_SHAPES[index % BODY_SHAPES.length];
     });
+    sittingNpcs.forEach((e, index) => {
+        const av2 = AvatarShape.getMutable(e)
+        av2.expressionTriggerId = ''
+        av2.skinColor = SKIN_COLORS[index % SKIN_COLORS.length];
+        av2.hairColor = HAIR_COLORS[index % HAIR_COLORS.length];
+        av2.bodyShape = BODY_SHAPES[index % BODY_SHAPES.length];
+    })
 }
 
 const BARTENDER_WEARABLES: string[] = [
@@ -229,12 +245,18 @@ export function addDanceManager() {
         const npc = createNPC(pos, BODY_SHAPES[index % BODY_SHAPES.length], DANCE_WEARABLES[index], HAIR_COLORS[index % HAIR_COLORS.length], SKIN_COLORS[index % SKIN_COLORS.length]);
         danceNpcs.push(npc);
     });
+    SITTING_POSITIONS.forEach((pos, index) => {
+        const npc = createNPC(pos, BODY_SHAPES[index % BODY_SHAPES.length], DANCE_WEARABLES[index], HAIR_COLORS[index % HAIR_COLORS.length], SKIN_COLORS[index % SKIN_COLORS.length]);
+        sittingNpcs.push(npc);
+    });
     startNpcDance();
 }
 
 export function removeDanceNpcs() {
     danceNpcs.forEach(e => engine.removeEntity(e));
     danceNpcs = [];
+    sittingNpcs.forEach(e => engine.removeEntity(e))
+    sittingNpcs = []
 }
 
 export function addGalleryManager_1() {
