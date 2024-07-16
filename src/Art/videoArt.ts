@@ -226,6 +226,20 @@ if (!isParty) {
     },
     {
       room: 4,
+      id: 41,
+      position: artPos41,
+      rotation: artRot41,
+      scale: artScale41,
+      image: rooftopImage,
+      video: rooftopVideo,
+      hoverText: 'Play / Pause',
+      website: rooftopUrl,
+      triggerScale: artTriggerScale41,
+      triggerPosition: artTriggerPos41,
+      audio: false,
+    },
+    {
+      room: 4,
       id: 40,
       position: artPos40,
       rotation: artRot40,
@@ -238,20 +252,7 @@ if (!isParty) {
       triggerPosition: artTriggerPos40,
       audio: false,
     },
-    {
-      room: 4,
-      id: 41,
-      position: artPos41,
-      rotation: artRot41,
-      scale: artScale41,
-      image: rooftopImage,
-      video: rooftopVideo,
-      hoverText: 'Play / Pause',
-      website: rooftopUrl,
-      triggerScale: artTriggerScale41,
-      triggerPosition: artTriggerPos41,
-      audio: false,
-    }
+  
   );
 }
 
