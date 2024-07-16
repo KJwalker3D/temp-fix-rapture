@@ -84,11 +84,11 @@ export async function createLazyArea(position: Vector3, scale: Vector3, parentPo
           addGalleryManager_2()
           addVonsEmoters()
         } if (id === 4 && !isParty) {
-          await toggleStream()
           console.log('enter roof no party')
           addDanceManager()
           createDJ()
           addRooftopEmoters()
+          await toggleStream()
           //addSitManager()
         } else if (id === 4 && isParty) {
           stopStream()

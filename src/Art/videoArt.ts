@@ -2,7 +2,7 @@ import { engine, Transform, MeshRenderer, MeshCollider, Material, VideoPlayer, I
 import * as utils from '@dcl-sdk/utils';
 import { openExternalUrl } from '~system/RestrictedActions';
 import { Quaternion, Color3, Color4, Vector3 } from '@dcl/sdk/math';
-import { artImage14, artImage15, artImage21, artImage22, artImage23, artImage24, artImage25, artImage26, artImage27, artImage32, artImage37, artImage39, artImage40, artImage41, artImage5, artLink14, artLink15, artLink21, artLink22, artLink23, artLink24, artLink25, artLink26, artLink27, artLink32, artLink37, artLink5, artPos14, artPos15, artPos21, artPos22, artPos23, artPos24, artPos25, artPos26, artPos27, artPos32, artPos37, artPos39, artPos40, artPos41, artPos5, artRot14, artRot15, artRot21, artRot22, artRot23, artRot24, artRot25, artRot26, artRot27, artRot32, artRot37, artRot39, artRot40, artRot41, artRot5, artScale14, artScale15, artScale21, artScale22, artScale23, artScale24, artScale25, artScale26, artScale27, artScale32, artScale37, artScale39, artScale40, artScale41, artScale5, artTriggerPos14, artTriggerPos15, artTriggerPos21, artTriggerPos22, artTriggerPos23, artTriggerPos24, artTriggerPos25, artTriggerPos26, artTriggerPos27, artTriggerPos32, artTriggerPos37, artTriggerPos39, artTriggerPos40, artTriggerPos41, artTriggerPos5, artTriggerScale14, artTriggerScale15, artTriggerScale21, artTriggerScale22, artTriggerScale23, artTriggerScale24, artTriggerScale25, artTriggerScale26, artTriggerScale27, artTriggerScale32, artTriggerScale37, artTriggerScale39, artTriggerScale40, artTriggerScale41, artTriggerScale5, artVideo14, artVideo15, artVideo21, artVideo22, artVideo23, artVideo24, artVideo25, artVideo26, artVideo27, artVideo32, artVideo37, artVideo39, artVideo40, artVideo41, artVideo5, rooftopUrl } from './artData';
+import { artImage14, artImage15, artImage21, artImage22, artImage23, artImage24, artImage25, artImage26, artImage27, artImage32, artImage37, artImage39, artImage40, artImage41, artImage5, artLink14, artLink15, artLink21, artLink22, artLink23, artLink24, artLink25, artLink26, artLink27, artLink32, artLink37, artLink5, artPos14, artPos15, artPos21, artPos22, artPos23, artPos24, artPos25, artPos26, artPos27, artPos32, artPos37, artPos39, artPos40, artPos41, artPos5, artRot14, artRot15, artRot21, artRot22, artRot23, artRot24, artRot25, artRot26, artRot27, artRot32, artRot37, artRot39, artRot40, artRot41, artRot5, artScale14, artScale15, artScale21, artScale22, artScale23, artScale24, artScale25, artScale26, artScale27, artScale32, artScale37, artScale39, artScale40, artScale41, artScale5, artTriggerPos14, artTriggerPos15, artTriggerPos21, artTriggerPos22, artTriggerPos23, artTriggerPos24, artTriggerPos25, artTriggerPos26, artTriggerPos27, artTriggerPos32, artTriggerPos37, artTriggerPos39, artTriggerPos40, artTriggerPos41, artTriggerPos5, artTriggerScale14, artTriggerScale15, artTriggerScale21, artTriggerScale22, artTriggerScale23, artTriggerScale24, artTriggerScale25, artTriggerScale26, artTriggerScale27, artTriggerScale32, artTriggerScale37, artTriggerScale39, artTriggerScale40, artTriggerScale41, artTriggerScale5, artVideo14, artVideo15, artVideo21, artVideo22, artVideo23, artVideo24, artVideo25, artVideo26, artVideo27, artVideo32, artVideo37, artVideo39, artVideo40, artVideo41, artVideo5, rooftopImage, rooftopUrl, rooftopVideo } from './artData';
 import { isParty } from '../config';
 import { createStream, stopStream, toggleStream } from '../playlist';
 
@@ -216,8 +216,8 @@ if (!isParty) {
       position: artPos39,
       rotation: artRot39,
       scale: artScale39,
-      image: artImage39,
-      video: artVideo39,
+      image: rooftopImage,
+      video: rooftopVideo,
       hoverText: 'Play / Pause',
       website: rooftopUrl,
       triggerScale: artTriggerScale39,
@@ -230,8 +230,8 @@ if (!isParty) {
       position: artPos40,
       rotation: artRot40,
       scale: artScale40,
-      image: artImage40,
-      video: artVideo40,
+      image: rooftopImage,
+      video: rooftopVideo,
       hoverText: 'Play / Pause',
       website: rooftopUrl,
       triggerScale: artTriggerScale40,
@@ -244,8 +244,8 @@ if (!isParty) {
       position: artPos41,
       rotation: artRot41,
       scale: artScale41,
-      image: artImage41,
-      video: artVideo41,
+      image: rooftopImage,
+      video: rooftopVideo,
       hoverText: 'Play / Pause',
       website: rooftopUrl,
       triggerScale: artTriggerScale41,
