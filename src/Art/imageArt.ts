@@ -120,6 +120,8 @@ export const imageArtCollection: ImageData[] = [
     hasAlpha: false
   },
 //garden monolith
+// change to eternal pump
+/*
   {
     room: 1,
     id: 10,
@@ -131,6 +133,7 @@ export const imageArtCollection: ImageData[] = [
     url: artLink10,
     hasAlpha: false
   },
+  */
   //anticyclone wmapan
   {
     room: 1,

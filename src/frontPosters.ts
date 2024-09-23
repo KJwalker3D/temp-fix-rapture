@@ -9,7 +9,9 @@ let frontScreensVisible = true;
 let frontScreensInstanced = true;
 const poster = 'https://bafkreib2v56py6d6obf2x35oviiw2fvomojszplmk6wxao3fzkfgg66vba.ipfs.nftstorage.link/'
 //const posterGrandOpening = 'https://bafkreihkuxqjzixdqpojsgck6s76mhjcajfqaeuvc4hh3tujr5efz3hqfa.ipfs.nftstorage.link/'
-const gucciPoster = 'https://bafkreiaaz54z55k3jh6csucc3zxmvmmsnu3r4ow2x3h4b736dzux5bfbee.ipfs.nftstorage.link/'
+// const gucciPoster = 'https://bafkreiaaz54z55k3jh6csucc3zxmvmmsnu3r4ow2x3h4b736dzux5bfbee.ipfs.nftstorage.link/'
+
+const gucciPoster = 'https://bafkreib2v56py6d6obf2x35oviiw2fvomojszplmk6wxao3fzkfgg66vba.ipfs.nftstorage.link/'
 
 
 

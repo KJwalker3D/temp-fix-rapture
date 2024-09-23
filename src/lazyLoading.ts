@@ -132,7 +132,7 @@ export async function createLazyArea(position: Vector3, scale: Vector3, parentPo
         removeDJ()
         console.log('exit roof no party')
       } else if (id === 4 && isParty) {
-        createStream()
+       createStream()
         removeDJ()
         console.log('exit roof yes party')
       }

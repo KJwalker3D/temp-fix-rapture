@@ -25,10 +25,14 @@ export function main() {
   engine.addSystem(artHoverSystem)
   engine.addSystem(changeArtHoverSystem)
   createBuilding()
-  createStream()
+   createStream()
   //stopStream()
   createFrontScreens()
-  //VLM.init()
+  if (isParty) {
+    VLM.init({})
+    //console.log(VLM.getState)
+
+  }
   utils.timers.setTimeout(() => {
     setupUi()
   }, 7000)

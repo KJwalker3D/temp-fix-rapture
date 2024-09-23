@@ -6,6 +6,20 @@ import { sceneParent } from "../components";
 
 // Artwork: 
 
+
+// eternal pump (was garden monolith)
+
+export const artTitle10 = 'The Eternal Pump #3'
+export const artDescription10 = "Don't fight it. Just respect it. Made by Dmitri Cherniak with Javascript and GLSL."
+export const artLink10 = 'https://opensea.io/assets/ethereum/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/22000003'
+export const artImage10 = 'images/eternalPump-min.jpg'
+export const artPos10 = Vector3.create(-15.05, 5.57, 58.88)
+export const artRot10 = Vector3.create(0, -90, 0)
+export const artScale10 = Vector3.create(3.369, 3.404, 1)
+export const artVideo10 = 'https://player.vimeo.com/external/991563581.m3u8?s=9a1cecfa697c539179d185708e1afb8ed08d7205&logging=false'
+export const artTriggerPos10 = Vector3.create(-10.05, 5.57, 58.88)
+export const artTriggerScale10 = Vector3.create(10, 10, 10)
+
 //math art 95 herbert
 export const artTitle1 = 'Math Art 95'
 export const artDescription1 = 'No. 3 by Herbert W. Franke'
@@ -92,13 +106,9 @@ export const artRot9 = Vector3.create(0, -90, 0)
 export const artScale9 = Vector3.create(2.987, 3.734, 1)
 
 //garden monolith
-export const artTitle10 = 'Garden, Monolith #40'
-export const artDescription10 = 'by Zancan'
-export const artLink10 = 'https://www.fxhash.xyz/gentk/146018'
-export const artImage10 = 'https://bafybeifl3tm7ixruheflq33wwuwl6ijttcsxjwxqwle6zdpwpvasqrjyuq.ipfs.nftstorage.link/'
-export const artPos10 = Vector3.create(-15.05, 5.57, 58.88)
-export const artRot10 = Vector3.create(0, 90, 0)
-export const artScale10 = Vector3.create(3.369, 3.404, 1)
+//export const artTitle10 = 'Garden, Monolith #40'
+//export const artDescription10 = 'by Zancan'
+
 
 //anticyclone wmapan
 export const artTitle11 = 'Anticyclone #642'
