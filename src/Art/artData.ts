@@ -418,7 +418,7 @@ const rooftopPosZ = 32
 const rooftopPos = Vector3.create(rooftopPosX, rooftopPosY, rooftopPosZ)
 const rooftopScale = Vector3.create(31, 10, 63)
 // left
-export const artPos39 = Vector3.create(-15.45, 39.85, 10.35 + 32)
+export const artPos39 = Vector3.create(-14.45, 39.85, 10.35 + 32)
 export const artRot39 = Vector3.create(0, 90, -90)
 export const artScale39 = Vector3.create(7.5 * 0.9, 4.15 * 0.9, 4)
 export const artImage39 = rooftopImage
@@ -436,7 +436,7 @@ export const artTriggerPos40 = rooftopPos
 export const artTriggerScale40 = rooftopScale
 
 // right
-export const artPos41 = Vector3.create(-15.45, 39.85, 32 - 10.35)
+export const artPos41 = Vector3.create(-14.95, 39.85, 32 - 10.35)
 export const artRot41 = Vector3.create(0, 90, 90)
 export const artScale41 = Vector3.create(7.5 * 0.9, 4.15 * 0.9, 4)
 export const artImage41 = rooftopImage
