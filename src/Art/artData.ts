@@ -356,7 +356,7 @@ export const artLink34 = 'https://cryptopunks.app/cryptopunks/details/3060'
 export const artImage34 = 'https://bafkreiclxuga2tygjgjnreta3ze2em34ba3sfmbhokkzo2i4nzidlhflqm.ipfs.nftstorage.link/'
 export const artPos34 = Vector3.create(-15.1, 23.72, 48.442)
 export const artRot34 = Vector3.create(0, -90, 0)
-export const artScale34 = Vector3.create(1.963, 1.963, 1)
+export const artScale34 = Vector3.create(2.15, 2.15, 1)
 
 //punk 3321
 export const artTitle35 = 'Punk #3321'
