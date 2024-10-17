@@ -7,9 +7,9 @@ import { sceneParent } from "../components";
 // Artwork: 
 
 
-// eternal pump (was garden monolith)
+// eternal pump (was garden monolith) -- CHANGE TO HERBERT MATH
 
-export const artTitle10 = 'The Eternal Pump #3'
+/*export const artTitle10 = 'The Eternal Pump #3'
 export const artDescription10 = "Don't fight it. Just respect it. Made by Dmitri Cherniak with Javascript and GLSL."
 export const artLink10 = 'https://opensea.io/assets/ethereum/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/22000003'
 export const artImage10 = 'images/eternalPump-min.jpg'
@@ -18,13 +18,33 @@ export const artRot10 = Vector3.create(0, -90, 0)
 export const artScale10 = Vector3.create(3.369, 3.404, 1)
 export const artVideo10 = 'https://player.vimeo.com/external/991563581.m3u8?s=9a1cecfa697c539179d185708e1afb8ed08d7205&logging=false'
 export const artTriggerPos10 = Vector3.create(-10.05, 5.57, 58.88)
-export const artTriggerScale10 = Vector3.create(10, 10, 10)
+export const artTriggerScale10 = Vector3.create(10, 10, 10)*/
 
-//math art 95 herbert
+export const artTitle10 = 'Math Art 95'
+export const artDescription10 = "No. 3 by Herbert W. Franke"
+export const artLink10 = 'https://opensea.io/assets/ethereum/0x46ac8540d698167fcbb9e846511beb8cf8af9bd8/430075'
+export const artImage10 = 'https://bafybeignli2uftg7fqeaotaiq5l42yopgukz67azewgfci23vwjqobwxmu.ipfs.nftstorage.link/'
+export const artPos10 = Vector3.create(-15.05, 5.57, 58.88)
+export const artRot10 = Vector3.create(0, -90, 0)
+export const artScale10 = Vector3.create(3.369, 3.404, 1)
+//export const artVideo10 = 'https://player.vimeo.com/external/991563581.m3u8?s=9a1cecfa697c539179d185708e1afb8ed08d7205&logging=false'
+//export const artTriggerPos10 = Vector3.create(-10.05, 5.57, 58.88)
+//export const artTriggerScale10 = Vector3.create(10, 10, 10)
+
+//math art 95 herbert -- CHANGE TO AUTOGLYPH
+/*
 export const artTitle1 = 'Math Art 95'
 export const artDescription1 = 'No. 3 by Herbert W. Franke'
 export const artLink1 = 'https://opensea.io/assets/ethereum/0x46ac8540d698167fcbb9e846511beb8cf8af9bd8/430075'
 export const artImage1 = 'https://bafybeignli2uftg7fqeaotaiq5l42yopgukz67azewgfci23vwjqobwxmu.ipfs.nftstorage.link/'
+export const artPos1 = Vector3.create(14.69, 5.59, 58.94)
+export const artRot1 = Vector3.create(0, 90, 0)
+export const artScale1 = Vector3.create(3.311, 3.356, 1)
+*/
+export const artTitle1 = 'Autoglyph #444'
+export const artDescription1 = 'Autoglyphs are the first “on-chain” generative art on the Ethereum blockchain.'
+export const artLink1 = 'https://opensea.io/assets/ethereum/0xd4e4078ca3495de5b1d4db434bebc5a986197782/444'
+export const artImage1 = 'https://bafkreifddszxpp5vynanichcnofr5n5dkcf5bzniejt2kkg72hpi2sc3na.ipfs.nftstorage.link/'
 export const artPos1 = Vector3.create(14.69, 5.59, 58.94)
 export const artRot1 = Vector3.create(0, 90, 0)
 export const artScale1 = Vector3.create(3.311, 3.356, 1)
@@ -38,14 +58,28 @@ export const artPos2 = Vector3.create(13.25, 5.59, 50.509)
 export const artRot2 = Vector3.create(0, 90, 0)
 export const artScale2 = Vector3.create(3.434, 3.434, 1)
 
-//autoglyph 444
-export const artTitle3 = 'Autoglyph #444'
+//autoglyph 444 -- CHANGE TO ETERNAL PUMP
+/*export const artTitle3 = 'HERE Autoglyph #444'
 export const artDescription3 = 'Autoglyphs are the first “on-chain” generative art on the Ethereum blockchain.'
 export const artLink3 = 'https://opensea.io/assets/ethereum/0xd4e4078ca3495de5b1d4db434bebc5a986197782/444'
 export const artImage3 = 'https://bafkreifddszxpp5vynanichcnofr5n5dkcf5bzniejt2kkg72hpi2sc3na.ipfs.nftstorage.link/'
 export const artPos3 = Vector3.create(13.25, 5.59, 13.492)
 export const artRot3 = Vector3.create(0, 90, 0)
 export const artScale3 = Vector3.create(3.444, 3.444, 1)
+*/
+
+export const artTitle3 = 'The Eternal Pump #3'
+export const artDescription3 = "Don't fight it. Just respect it. Made by Dmitri Cherniak with Javascript and GLSL."
+export const artLink3 = 'https://opensea.io/assets/ethereum/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/22000003'
+export const artImage3 = 'images/eternalPump-min.jpg'
+export const artPos3 = Vector3.create(13.25, 5.59, 13.492)
+export const artRot3 = Vector3.create(0, 90, 0)
+export const artScale3 = Vector3.create(3.444, 3.444, 1)
+export const artVideo3 = 'https://player.vimeo.com/external/991563581.m3u8?s=9a1cecfa697c539179d185708e1afb8ed08d7205&logging=false'
+export const artTriggerPos3 = Vector3.create(10.25, 5.59, 13.492)
+export const artTriggerScale3 = Vector3.create(10, 10, 10)
+
+
 
 //ly 14 dmitri
 export const artTitle4 = 'Light Years #014'

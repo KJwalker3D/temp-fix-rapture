@@ -2,9 +2,9 @@ import { engine, Transform, MeshRenderer, MeshCollider, Material, VideoPlayer, I
 import * as utils from '@dcl-sdk/utils';
 import { openExternalUrl } from '~system/RestrictedActions';
 import { Quaternion, Color3, Color4, Vector3 } from '@dcl/sdk/math';
-import { artImage10, artImage14, artImage15, artImage21, artImage22, artImage23, artImage24, artImage25, artImage26, artImage27, artImage32, artImage37, artImage39, artImage40, artImage41, artImage5, artLink14, artLink15, artLink21, artLink22, artLink23, artLink24, artLink25, artLink26, artLink27, artLink32, artLink37, artLink5, artPos10, artPos14, artPos15, artPos21, artPos22, artPos23, artPos24, artPos25, artPos26, artPos27, artPos32, artPos37, artPos39, artPos40, artPos41, artPos5, artRot10, artRot14, artRot15, artRot21, artRot22, artRot23, artRot24, artRot25, artRot26, artRot27, artRot32, artRot37, artRot39, artRot40, artRot41, artRot5, artScale10, artScale14, artScale15, artScale21, artScale22, artScale23, artScale24, artScale25, artScale26, artScale27, artScale32, artScale37, artScale39, artScale40, artScale41, artScale5, artTriggerPos10, artTriggerPos14, artTriggerPos15, artTriggerPos21, artTriggerPos22, artTriggerPos23, artTriggerPos24, artTriggerPos25, artTriggerPos26, artTriggerPos27, artTriggerPos32, artTriggerPos37, artTriggerPos39, artTriggerPos40, artTriggerPos41, artTriggerPos5, artTriggerScale10, artTriggerScale14, artTriggerScale15, artTriggerScale21, artTriggerScale22, artTriggerScale23, artTriggerScale24, artTriggerScale25, artTriggerScale26, artTriggerScale27, artTriggerScale32, artTriggerScale37, artTriggerScale39, artTriggerScale40, artTriggerScale41, artTriggerScale5, artVideo10, artVideo14, artVideo15, artVideo21, artVideo22, artVideo23, artVideo24, artVideo25, artVideo26, artVideo27, artVideo32, artVideo37, artVideo39, artVideo40, artVideo41, artVideo5, rooftopImage, rooftopUrl, rooftopVideo } from './artData';
+import { artImage14, artImage15, artImage21, artImage22, artImage23, artImage24, artImage25, artImage26, artImage27, artImage3, artImage32, artImage37, artImage5, artLink14, artLink15, artLink21, artLink22, artLink23, artLink24, artLink25, artLink26, artLink27, artLink32, artLink37, artLink5, artPos14, artPos15, artPos21, artPos22, artPos23, artPos24, artPos25, artPos26, artPos27, artPos3, artPos32, artPos37, artPos39, artPos40, artPos41, artPos5, artRot14, artRot15, artRot21, artRot22, artRot23, artRot24, artRot25, artRot26, artRot27, artRot3, artRot32, artRot37, artRot39, artRot40, artRot41, artRot5, artScale14, artScale15, artScale21, artScale22, artScale23, artScale24, artScale25, artScale26, artScale27, artScale3, artScale32, artScale37, artScale39, artScale40, artScale41, artScale5, artTriggerPos14, artTriggerPos15, artTriggerPos21, artTriggerPos22, artTriggerPos23, artTriggerPos24, artTriggerPos25, artTriggerPos26, artTriggerPos27, artTriggerPos3, artTriggerPos32, artTriggerPos37, artTriggerPos39, artTriggerPos40, artTriggerPos41, artTriggerPos5, artTriggerScale14, artTriggerScale15, artTriggerScale21, artTriggerScale22, artTriggerScale23, artTriggerScale24, artTriggerScale25, artTriggerScale26, artTriggerScale27, artTriggerScale3, artTriggerScale32, artTriggerScale37, artTriggerScale39, artTriggerScale40, artTriggerScale41, artTriggerScale5, artVideo14, artVideo15, artVideo21, artVideo22, artVideo23, artVideo24, artVideo25, artVideo26, artVideo27, artVideo3, artVideo32, artVideo37, artVideo5, rooftopImage, rooftopUrl, rooftopVideo } from './artData';
 import { isParty } from '../config';
-import { createStream, stopStream, toggleStream } from '../playlist';
+import { createStream, stopStream } from '../playlist';
 
 let videoPlayer: any = null;
 
@@ -28,16 +28,16 @@ export const videoCollection: VideoData[] = [
   // eternal pump (was garden monolith)
   {
     room: 1,
-    id: 10,
-    position: artPos10,
-    rotation: artRot10,
-    scale: artScale10,
-    image: artImage10,
-    video: artVideo10,
+    id: 3,
+    position: artPos3,
+    rotation: artRot3,
+    scale: artScale3,
+    image: artImage3,
+    video: artVideo3,
     hoverText: 'Click',
     website: 'https://opensea.io/assets/ethereum/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/22000003',
-    triggerScale: artTriggerScale10,
-    triggerPosition: artTriggerPos10,
+    triggerScale: artTriggerScale3,
+    triggerPosition: artTriggerPos3,
     audio: false
   },
   
