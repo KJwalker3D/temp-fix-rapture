@@ -6,13 +6,14 @@ import { createImageArt, imageArtCollection } from './Art/imageArt'
 import { createKineticArt, kineticArtCollection } from './Art/kineticArt'
 import { addBartenderManager, addDanceManager, addGalleryManager_1, addGalleryManager_2, addSitManager, removeBartenderNpcs, removeDanceNpcs, removeGalleryNpcs_1, removeGalleryNpcs_2, removeSitNpcs, spawnNPCsBasedOnRoom } from './npcs'
 import { createStream, stopStream, toggleStream } from './playlist'
-import { toggleFrontScreens } from './frontPosters'
+import { createFrontScreens, toggleFrontScreens, turnOffFrontScreens } from './frontPosters'
 import { createDJ, removeDJ } from './dj'
 import { isParty } from './config'
 import { addRaptureEmoters, addRooftopEmoters, addVonsEmoters, toggleRaptureEmoters, toggleRooftopoEmoters, toggleVonsEmoters } from './emoteFurnis'
 
 
 export let scene1active = true
+let frontScreensActive = true
 
 export async function createLazyArea(position: Vector3, scale: Vector3, parentPos: Entity, id: number,) {
   const entity = engine.addEntity()
@@ -75,15 +76,24 @@ export async function createLazyArea(position: Vector3, scale: Vector3, parentPo
         }
    
         if (id === 1) {
-          toggleFrontScreens()
+          if (frontScreensActive) {
+            turnOffFrontScreens()
+          }
+         // toggleFrontScreens()
           addGalleryManager_1()
           addRaptureEmoters()
         }
         if (id === 3) {
+          if (frontScreensActive) {
+            turnOffFrontScreens()
+          }
          // addBartenderManager()
           addGalleryManager_2()
           addVonsEmoters()
         } if (id === 4 && !isParty) {
+          if (frontScreensActive) {
+            turnOffFrontScreens()
+          }
           console.log('enter roof no party')
           addDanceManager()
           createDJ()
@@ -91,6 +101,9 @@ export async function createLazyArea(position: Vector3, scale: Vector3, parentPo
           await toggleStream()
           //addSitManager()
         } else if (id === 4 && isParty) {
+          if (frontScreensActive) {
+            turnOffFrontScreens()
+          }
           stopStream()
           addDanceManager()
           createDJ()
@@ -104,6 +117,9 @@ export async function createLazyArea(position: Vector3, scale: Vector3, parentPo
     () => {
       console.log('LEFT')
 
+      if (frontScreensActive) {
+        turnOffFrontScreens()
+      }
       //removeBartenderNpcs()
       removeDanceNpcs()
       removeGalleryNpcs_1()
@@ -125,7 +141,7 @@ export async function createLazyArea(position: Vector3, scale: Vector3, parentPo
       }
    
       if (id === 1) {
-        toggleFrontScreens()
+        createFrontScreens()
       }
       if (id === 4 && !isParty) {
         toggleStream()

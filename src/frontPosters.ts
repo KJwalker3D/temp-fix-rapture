@@ -16,49 +16,49 @@ const gucciPoster = 'https://bafkreib2v56py6d6obf2x35oviiw2fvomojszplmk6wxao3fzk
 
 
 export function createFrontScreens() {
-    
-    MeshRenderer.setPlane(frontScreenLeft);
-    
-    Transform.createOrReplace(frontScreenLeft, {
+
+  MeshRenderer.setPlane(frontScreenLeft);
+
+  Transform.createOrReplace(frontScreenLeft, {
     position: Vector3.create(12.345, -19.25, 18.01),
     scale: Vector3.create(4.15, 7.5, 4),
     rotation: Quaternion.fromEulerDegrees(0, 180, 0),
     parent: sceneParent
-    });
-    
-    
-    
-    Material.setPbrMaterial(frontScreenLeft, {
+  });
+
+
+
+  Material.setPbrMaterial(frontScreenLeft, {
     texture: Material.Texture.Common({
       src: poster
     }),
-    roughness: 1, 
+    roughness: 1,
     specularIntensity: 0,
     metallic: 0,
-    
+
     emissiveTexture: Material.Texture.Common({
       src: poster
     }),
     emissiveColor: Color4.White(),
     emissiveIntensity: 1,
-    })
+  })
 
 
-    
-    MeshRenderer.setPlane(frontScreenRight);
-    
-    Transform.createOrReplace(frontScreenRight, {
+
+  MeshRenderer.setPlane(frontScreenRight);
+
+  Transform.createOrReplace(frontScreenRight, {
     position: Vector3.create(-12.355, -19.25, 18.01),
     scale: Vector3.create(4.15, 7.5, 4),
     rotation: Quaternion.fromEulerDegrees(0, 180, 0),
     parent: sceneParent
-    });
-    
-    Material.setPbrMaterial(frontScreenRight, {
+  });
+
+  Material.setPbrMaterial(frontScreenRight, {
     texture: Material.Texture.Common({
       src: gucciPoster
     }),
-    roughness: 1, 
+    roughness: 1,
     specularIntensity: 0,
     metallic: 0,
     emissiveTexture: Material.Texture.Common({
@@ -66,23 +66,23 @@ export function createFrontScreens() {
     }),
     emissiveColor: Color4.White(),
     emissiveIntensity: 1,
-    })
-    frontScreensVisible = true
-    
-    }
-    
-    export function turnOffFrontScreens() {
-    engine.removeEntity(frontScreenLeft)
-    
-    engine.removeEntity(frontScreenRight)
-    frontScreensVisible = false
-    }
+  })
+  frontScreensVisible = true
 
-    export function toggleFrontScreens() {
-        if (!frontScreensVisible) {
-          createFrontScreens()
-        }
-        else if (frontScreensVisible) {
-        turnOffFrontScreens()
-        }
-        }
+}
+
+export function turnOffFrontScreens() {
+  engine.removeEntity(frontScreenLeft)
+
+  engine.removeEntity(frontScreenRight)
+  frontScreensVisible = false
+}
+
+export function toggleFrontScreens() {
+  if (!frontScreensVisible) {
+    createFrontScreens()
+  }
+  else if (frontScreensVisible) {
+    turnOffFrontScreens()
+  }
+}

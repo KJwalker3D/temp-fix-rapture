@@ -36,25 +36,28 @@ function createEmoter(position: Vector3, rotation: Quaternion, scale: Vector3, c
 
     triggerSceneEmote({ src: sitEmote, loop: false });
 
-    utils.timers.setTimeout(() => {
+    let sitTimer = utils.timers.setTimeout(() => {
       triggerSceneEmote({
         src: sitLoopEmote,
         loop: true,
-      });
-    }, sitDuration);
+      })
+    }, sitDuration)
 
     // Add a listener for player movement to stop the emote when the player moves away
     const initialPosition = Vector3.clone(playerTransform.position);
     const checkDistance = () => {
       const currentPosition = playerTransform.position;
       const distance = Vector3.distance(initialPosition, currentPosition);
-      if (distance > 1) { // Adjust the distance threshold as needed
+      if (distance > 0.15) { // Adjust the distance threshold as needed
         triggerSceneEmote({ src: 'Idle', loop: false }); // Stop the emote
         utils.timers.clearTimeout(1000); // Clear the loop emote
+        utils.timers.clearInterval(interval)
+        utils.timers.clearTimeout(sitTimer)
       }
     };
 
     utils.timers.setInterval(checkDistance, 500);
+    let interval = utils.timers.setInterval(checkDistance, 500)
   }
 
   pointerEventsSystem.onPointerDown({

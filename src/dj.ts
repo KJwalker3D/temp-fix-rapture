@@ -4,12 +4,17 @@ import {
     GltfContainer,
     Transform,
     ColliderLayer
-  } from '@dcl/sdk/ecs'
-  import { Color4, Vector3, Quaternion } from '@dcl/sdk/math'
+} from '@dcl/sdk/ecs'
+import { Vector3, Quaternion } from '@dcl/sdk/math'
 
-const dj = engine.addEntity()
+let dj = engine.addEntity()
+let djCreated = true
 
-  export function createDJ() {
+export function createDJ() {
+    if (!djCreated) {
+        dj = engine.addEntity()
+        djCreated = true
+    }
 
     GltfContainer.createOrReplace(dj, {
         src: 'models/rapture-dj.glb',
@@ -21,26 +26,30 @@ const dj = engine.addEntity()
         rotation: Quaternion.fromEulerDegrees(0, -90, 0)
     })
     Animator.createOrReplace(dj, {
-        states:[{
+        states: [{
             clip: "complete",
-            playing: true, 
+            playing: true,
             loop: true,
         }, {
             clip: "dance.",
-            playing: false, 
+            playing: false,
             loop: true,
         }, {
-            clip: "idle", 
+            clip: "idle",
             playing: false,
             loop: true
         }, {
-            clip: "splat", 
+            clip: "splat",
             playing: false,
             loop: true
         }]
     })
-  }
+}
 
-  export function removeDJ() {
-    engine.removeEntity(dj)
-  }
+
+export function removeDJ() {
+    if (djCreated) {
+        engine.removeEntity(dj)
+        djCreated = false
+    }
+}
