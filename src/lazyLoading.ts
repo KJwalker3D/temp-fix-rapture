@@ -1,201 +1,208 @@
-import { Vector3, Quaternion } from '@dcl/sdk/math'
-import { Entity, Transform, engine } from '@dcl/sdk/ecs'
-import * as utils from '@dcl-sdk/utils'
-import { createVideoArt, videoCollection } from './Art/videoArt'
-import { createImageArt, imageArtCollection } from './Art/imageArt'
-import { createKineticArt, kineticArtCollection } from './Art/kineticArt'
-import { addBartenderManager, addDanceManager, addGalleryManager_1, addGalleryManager_2, addSitManager, removeBartenderNpcs, removeDanceNpcs, removeGalleryNpcs_1, removeGalleryNpcs_2, removeSitNpcs, spawnNPCsBasedOnRoom } from './npcs'
-import { createStream, stopStream, toggleStream } from './playlist'
-import { createFrontScreens, toggleFrontScreens, turnOffFrontScreens } from './frontPosters'
-import { createDJ, removeDJ } from './dj'
-import { isParty } from './config'
-import { addRaptureEmoters, addRooftopEmoters, addVonsEmoters, toggleRaptureEmoters, toggleRooftopoEmoters, toggleVonsEmoters } from './emoteFurnis'
+import { Vector3, Quaternion } from '@dcl/sdk/math';
+import { Entity, Transform, engine } from '@dcl/sdk/ecs';
+import * as utils from '@dcl-sdk/utils';
+import { createVideoArt, videoCollection } from './Art/videoArt';
+import { createImageArt, imageArtCollection } from './Art/imageArt';
+import { createKineticArt, kineticArtCollection } from './Art/kineticArt';
+import {
+  addBartenderManager,
+  addDanceManager,
+  addGalleryManager_1,
+  addGalleryManager_2,
+  addSitManager,
+  removeBartenderNpcs,
+  removeDanceNpcs,
+  removeGalleryNpcs_1,
+  removeGalleryNpcs_2,
+  removeSitNpcs,
+  spawnNPCsBasedOnRoom,
+  removeNPCsFromRoom
+} from './npcs'
+import { createStream, stopStream, toggleStream } from './playlist';
+import { createFrontScreens, toggleFrontScreens, turnOffFrontScreens } from './frontPosters';
+import { createDJ, removeDJ } from './dj';
+import { isParty } from './config';
+import { addEmoters, toggleEmoters, removeEmoters } from './emoteFurnis';
 
 
-export let scene1active = true
-let frontScreensActive = true
+let frontScreensActive = true;
+let scene1active = true;
 
-export async function createLazyArea(position: Vector3, scale: Vector3, parentPos: Entity, id: number,) {
-  const entity = engine.addEntity()
-
-  Transform.create(entity, {
-    position: position,
-    scale: scale,
-    parent: parentPos
-  })
+// Placeholder
 
 
-  const box = engine.addEntity()
-  Transform.create(box, { parent: parentPos, scale: scale })
 
+export async function createLazyArea(
+  position: Vector3,
+  scale: Vector3,
+  parentEntity: Entity,
+  id: number
+): Promise<Entity> {
+  console.log(`Creating Lazy Area for ID: ${id}`);
 
-  let createdVideos: Entity[] = []
+  const areaEntity = engine.addEntity();
+  Transform.create(areaEntity, { position, scale, parent: parentEntity });
 
-  let createdImages: Entity[] = []
+  const boxEntity = engine.addEntity();
+  Transform.create(boxEntity, { position, scale, parent: parentEntity });
 
-  let createdKinetic: Entity[] = []
+  let createdVideos: Entity[] = [];
+  let createdImages: Entity[] = [];
+  let createdKinetics: Entity[] = [];
 
-   utils.triggers.addTrigger(
-    box,
+  console.log(`Adding trigger for Lazy Area ID: ${id}`);
+
+  utils.triggers.addTrigger(
+    boxEntity,
     utils.LAYER_2,
     utils.LAYER_1,
-    [{
-      type: 'box',
-      position: position,
-      scale: scale
-    }],
+    [{ type: 'box', position, scale }],
     async () => {
-      if (scene1active) {
-        console.log(`ACTIVE`)
-        console.log(`ENTERED ` + id)
+      console.log(`Player entered Lazy Area ID: ${id}`);
+      if (!scene1active) return;
 
-        createdVideos = []
-        createdImages = []
-        createdKinetic = []
+      clearArtEntities(createdVideos, createdImages, createdKinetics);
 
-        spawnNPCsBasedOnRoom(id);
+      //spawnNPCsBasedOnRoom(id);
+      await loadArtForRoom(id, createdVideos, createdImages, createdKinetics);
 
-        for (const video of videoCollection) {
-          if (video.room === id) {
-            const videoArt = await createVideoArt(video.position, video.rotation, video.scale, video.image, video.video, video.hoverText, video.website, video.triggerScale, video.triggerPosition, video.audio)
-            createdVideos.push(videoArt)
-          }
-        }
-  
-        for (const imageArt of imageArtCollection) {
-          if (imageArt.room === id) {
-            const image = createImageArt(imageArt.position, imageArt.rotation, imageArt.scale, imageArt.image, imageArt.hoverText, imageArt.url, imageArt.hasAlpha)
-            createdImages.push(image)
-          }
-        }
-        for (const kineticArt of kineticArtCollection) {
-          if (kineticArt.room === id) {
-            const kinetic = createKineticArt(kineticArt.position, kineticArt.rotation, kineticArt.scale, kineticArt.modelPath, kineticArt.hoverText)
-            createdKinetic.push(kinetic)
-          }
-        }
-   
-        if (id === 1) {
-          if (frontScreensActive) {
-            turnOffFrontScreens()
-          }
-         // toggleFrontScreens()
-          addGalleryManager_1()
-          addRaptureEmoters()
-        }
-        if (id === 3) {
-          if (frontScreensActive) {
-            turnOffFrontScreens()
-          }
-         // addBartenderManager()
-          addGalleryManager_2()
-          addVonsEmoters()
-        } if (id === 4 && !isParty) {
-          if (frontScreensActive) {
-            turnOffFrontScreens()
-          }
-          console.log('enter roof no party')
-          addDanceManager()
-          createDJ()
-          addRooftopEmoters()
-          await toggleStream()
-          //addSitManager()
-        } else if (id === 4 && isParty) {
-          if (frontScreensActive) {
-            turnOffFrontScreens()
-          }
-          stopStream()
-          addDanceManager()
-          createDJ()
-          addRooftopEmoters()
-          console.log('enter roof party')
-
-        }
-
-      }
+      if (id === 1) handleArea1Entry();
+      if (id === 3) handleArea3Entry();
+      if (id === 4) await handleRoofEntry();
     },
     () => {
-      console.log('LEFT')
-
-      if (frontScreensActive) {
-        turnOffFrontScreens()
-      }
-      //removeBartenderNpcs()
-      removeDanceNpcs()
-      removeGalleryNpcs_1()
-      removeGalleryNpcs_2()
-      toggleRaptureEmoters()
-      toggleVonsEmoters()
-      toggleRooftopoEmoters()
-      //removeSitNpcs()
-      //removeDanceNpcs()
-
-      for (const videoArt of createdVideos) {
-        engine.removeEntity(videoArt)
-      }
-      for (const image of createdImages) {
-        engine.removeEntity(image)
-      }
-      for (const kinetic of createdKinetic) {
-        engine.removeEntity(kinetic)
-      }
-   
-      if (id === 1) {
-        createFrontScreens()
-      }
-      if (id === 4 && !isParty) {
-        toggleStream()
-        removeDJ()
-        console.log('exit roof no party')
-      } else if (id === 4 && isParty) {
-       createStream()
-        removeDJ()
-        console.log('exit roof yes party')
-      }
-
-      createdVideos = []
-      createdImages = []
-      createdKinetic = []
+      console.log(`Player left Lazy Area ID: ${id}`);
+      handleAreaExit(id, createdVideos, createdImages, createdKinetics);
     }
-  )
-  //utils.triggers.enableDebugDraw(true)
+  );
 
-  return entity
+  return areaEntity;
+}
+
+async function loadArtForRoom(
+  id: number,
+  createdVideos: Entity[],
+  createdImages: Entity[],
+  createdKinetics: Entity[]
+): Promise<void> {
+  console.log(`Loading art for room ID: ${id}`);
+
+  for (const video of videoCollection.filter((v) => v.room === id)) {
+    console.log(`Loading video art for room ID: ${id}`);
+    const videoArt: Entity = await createVideoArt(
+      video.position,
+      video.rotation,
+      video.scale,
+      video.image,
+      video.video,
+      video.hoverText,
+      video.website,
+      video.triggerScale,
+      video.triggerPosition,
+      video.audio
+    );
+    createdVideos.push(videoArt);
+  }
+
+  for (const imageArt of imageArtCollection.filter((i) => i.room === id)) {
+    console.log(`Loading image art for room ID: ${id}`);
+    const image: Entity = createImageArt(
+      imageArt.position,
+      imageArt.rotation,
+      imageArt.scale,
+      imageArt.image,
+      imageArt.hoverText,
+      imageArt.url,
+      imageArt.hasAlpha
+    );
+    createdImages.push(image);
+  }
+
+  for (const kineticArt of kineticArtCollection.filter((k) => k.room === id)) {
+    console.log(`Loading kinetic art for room ID: ${id}`);
+    const kinetic: Entity = createKineticArt(
+      kineticArt.position,
+      kineticArt.rotation,
+      kineticArt.scale,
+      kineticArt.modelPath,
+      kineticArt.hoverText
+    );
+    createdKinetics.push(kinetic);
+  }
+}
+
+function clearArtEntities(videos: Entity[], images: Entity[], kinetics: Entity[]): void {
+  [...videos, ...images, ...kinetics].forEach((entity) => engine.removeEntity(entity));
+  videos.length = images.length = kinetics.length = 0;
+}
+
+function handleArea1Entry(): void {
+  if (frontScreensActive) turnOffFrontScreens();
+  addGalleryManager_1();
+  addEmoters('rapture');
 }
 
 
-
-export function createAllLazyAreas() {
-
-  const lazyAreaRapture = engine.addEntity()
-  Transform.create(lazyAreaRapture, {
-    position: Vector3.One(),
-    scale: Vector3.One(),
-  })
-
-  const lazyAreaHope = engine.addEntity()
-  Transform.create(lazyAreaHope, {
-    position: Vector3.One(),
-    scale: Vector3.One(),
-  })
-
-
-  const lazyAreaVons = engine.addEntity()
-  Transform.create(lazyAreaVons, {
-    position: Vector3.One(),
-    scale: Vector3.One(),
-  })
-
-  const lazyAreaRoof = engine.addEntity()
-  Transform.create(lazyAreaRoof, {
-    position: Vector3.One(),
-    scale: Vector3.One(),
-  })
-
-
-  createLazyArea(Vector3.create(-1, 45, 32), Vector3.create(32, 20, 60), lazyAreaRoof, 4)
-  createLazyArea(Vector3.create(-1, 24, 48.75), Vector3.create(32, 10, 27.7), lazyAreaVons, 3)
-  createLazyArea(Vector3.create(-1, 24, 17), Vector3.create(31, 10, 32), lazyAreaHope, 2)
-  createLazyArea(Vector3.create(-1, 5, 32), Vector3.create(32, 22, 60), lazyAreaRapture, 1)
-
+function handleArea3Entry(): void {
+  if (frontScreensActive) turnOffFrontScreens();
+  addGalleryManager_2();
+  addEmoters('vons');
 }
+
+async function handleRoofEntry(): Promise<void> {
+  if (frontScreensActive) turnOffFrontScreens();
+  addDanceManager();
+  createDJ();
+  addEmoters('rooftop'); // Add rooftop emoters
+  removeSitNpcs();
+  addSitManager();
+
+  if (isParty) {
+    console.log('Entering Roof (Party Mode)');
+    stopStream();
+  } else {
+    console.log('Entering Roof (Non-Party Mode)');
+    await toggleStream();
+  }
+}
+
+
+function handleAreaExit(id: number, videos: Entity[], images: Entity[], kinetics: Entity[]): void {
+  clearArtEntities(videos, images, kinetics);
+
+  
+   //   removeNPCsFromRoom(id); // Remove for other areas
+  
+
+  if (id === 4) {
+      toggleStream();
+      removeDJ();
+      console.log(`Exiting Roof (ID: ${id})`);
+      removeSitNpcs();
+      removeEmoters('rooftop');
+  }
+
+  else if (id === 1) {
+    removeGalleryNpcs_1()
+    toggleEmoters('rapture');
+  }
+  toggleEmoters('vons');
+}
+
+export function createAllLazyAreas(): void {
+  console.log("created lazy areas")
+  const lazyAreas = [
+    { id: 4, position: Vector3.create(-0.5, 17.5, 15.5), scale: Vector3.create(31.5, 10, 64) },
+    { id: 3, position: Vector3.create(-0.5, 11.5, 24), scale: Vector3.create(32, 13, 27.7) },
+    { id: 2, position: Vector3.create(-0.5, 11.5, 8.75), scale: Vector3.create(31, 13, 32) },
+    { id: 1, position: Vector3.create(-0.5, 3, 16), scale: Vector3.create(32, 18, 60) },
+  ];
+
+  lazyAreas.forEach((area) => {
+    const parentEntity = engine.addEntity();
+    Transform.create(parentEntity, { position: Vector3.One(), scale: Vector3.One() });
+    createLazyArea(area.position, area.scale, parentEntity, area.id);
+  });
+}
+
+//utils.triggers.enableDebugDraw(true);

@@ -1,7 +1,7 @@
 import { engine } from "@dcl/sdk/ecs";
 import { setupUi } from './ui'
 import { ElevatorModule, createElevator } from './elevator'
-import {  addVonsEmoters } from './emoteFurnis'
+import { addEmoters } from './emoteFurnis'
 import { createAllLazyAreas } from './lazyLoading'
 import { artHoverSystem, changeArtHoverSystem, createArtHovers } from './Art/artHover'
 import { createBuilding } from "./components";

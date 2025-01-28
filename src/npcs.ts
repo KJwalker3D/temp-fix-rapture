@@ -1,4 +1,4 @@
-import { Color3, Color4, Quaternion, Vector3 } from '@dcl/sdk/math';
+import { Color4, Quaternion, Vector3 } from '@dcl/sdk/math';
 import { AvatarShape, Entity, Transform, engine } from '@dcl/sdk/ecs';
 
 // Constants for configuration
@@ -27,6 +27,14 @@ const GALLERY_POSITIONS_1 = [
     { position: Vector3.create(-10, 1, 10), rotation: Quaternion.fromEulerDegrees(0, -140, 0), scale: Vector3.One() },
 ];
 
+const GALLERY_POSITIONS_2 = [
+    { position: Vector3.create(1, 19.5, 55), rotation: Quaternion.fromEulerDegrees(0, -50, 0), scale: Vector3.One() },
+    { position: Vector3.create(10, 19.5, 43), rotation: Quaternion.fromEulerDegrees(0, 90, 0), scale: Vector3.One() },
+    { position: Vector3.create(-0.5, 19.5, 60), rotation: Quaternion.fromEulerDegrees(0, 180, 0), scale: Vector3.One() }
+
+
+]
+
 //update to drink positions 
 const SITTING_POSITIONS = [
     { position: Vector3.create(-8, 34.8, 21), rotation: Quaternion.fromEulerDegrees(0, -50, 0), scale: Vector3.One() },
@@ -39,22 +47,11 @@ const SITTING_POSITIONS = [
 
 ]
 
-const GALLERY_POSITIONS_2 = [
-    { position: Vector3.create(1, 19.5, 55), rotation: Quaternion.fromEulerDegrees(0, -50, 0), scale: Vector3.One() },
-    { position: Vector3.create(10, 19.5, 43), rotation: Quaternion.fromEulerDegrees(0, 90, 0), scale: Vector3.One() },
-    { position: Vector3.create(-0.5, 19.5, 60), rotation: Quaternion.fromEulerDegrees(0, 180, 0), scale: Vector3.One() }
-
-
-]
-
-const DANCE_MOVES = [
-    "dance", "robot", "tik", "hammer", "tektonik", "disco"
-];
+const DANCE_MOVES = [ "dance", "robot", "tik", "hammer", "tektonik", "disco" ];
 
 const CUSTOM_EMOTES = [
-    //
     'urn:decentraland:matic:collections-v2:0xca53b9436be1d663e050eb9ce523decbc656365c:0',
-    "clap"]; // Add custom emote URNs here
+    "clap"];
 
 const BODY_SHAPES = [
     'urn:decentraland:off-chain:base-avatars:BaseMale',
@@ -174,49 +171,6 @@ const DANCE_WEARABLES = [
 
 ];
 
-// State management
-let bartenderNpcs: Entity[] = [];
-let danceNpcs: Entity[] = [];
-let galleryNpcs_1: Entity[] = [];
-let galleryNpcs_2: Entity[] = [];
-
-let sittingNpcs: Entity[] = []
-const npcArrays: Entity[][] = [[], [], [], []];
-
-// Helper functions
-function createNPC(positionData: any, bodyShape: string, wearables: string[], hairColor: Color4, skinColor: Color4): Entity {
-    if (!Array.isArray(wearables)) {
-        console.error('wearables is not an array:', wearables);
-    }
-    const entity = engine.addEntity();
-    const av = AvatarShape.createOrReplace(entity);
-    Transform.createOrReplace(entity, positionData);
-    av.bodyShape = bodyShape;
-    av.hairColor = hairColor;
-    av.skinColor = skinColor;
-    av.wearables = Array.isArray(wearables) ? wearables: [];
-    av.name = "";
-    return entity;
-}
-
-function startNpcDance() {
-    danceNpcs.forEach((e, index) => {
-        const av = AvatarShape.getMutable(e);
-        av.expressionTriggerId = DANCE_MOVES[Math.floor(Math.random() * DANCE_MOVES.length)];
-        av.wearables = Array.isArray(DANCE_WEARABLES[index]) ? DANCE_WEARABLES[index]: [];
-        av.skinColor = SKIN_COLORS[index % SKIN_COLORS.length];
-        av.hairColor = HAIR_COLORS[index % HAIR_COLORS.length];
-        av.bodyShape = BODY_SHAPES[index % BODY_SHAPES.length];
-    });
-    sittingNpcs.forEach((e, index) => {
-        const av2 = AvatarShape.getMutable(e)
-        av2.expressionTriggerId = ''
-        av2.skinColor = SKIN_COLORS[index % SKIN_COLORS.length];
-        av2.hairColor = HAIR_COLORS[index % HAIR_COLORS.length];
-        av2.bodyShape = BODY_SHAPES[index % BODY_SHAPES.length];
-    })
-}
-
 const BARTENDER_WEARABLES: string[] = [
 
     'urn:decentraland:off-chain:base-avatars:BaseMale',
@@ -227,105 +181,237 @@ const BARTENDER_WEARABLES: string[] = [
 
 ];
 
-// Main functions
-export function addBartenderManager() {
+const SITTING_ROOM_INDEX = 4;
 
-    const npc = createNPC(BARTENDER_POSITIONS[1], BODY_SHAPES[1], BARTENDER_WEARABLES, Color4.Gray(), SKIN_COLORS[SKIN_COLORS.length]);
-    bartenderNpcs.push(npc);
+// State management
+const npcArrays: { [key: number]: Entity[] } = {};
 
+
+// Helper functions
+function createNPC(
+    positionData: { position: Vector3, rotation: Quaternion, scale: Vector3}, 
+    bodyShape: string, 
+    wearables: string[], 
+    hairColor: Color4, 
+    skinColor: Color4
+): Entity {
+    const entity = engine.addEntity();
+    Transform.createOrReplace(entity, positionData);
+    const av = AvatarShape.createOrReplace(entity);
+    av.bodyShape = bodyShape;
+    av.hairColor = hairColor;
+    av.skinColor = skinColor;
+    av.wearables = wearables || [];
+    av.name = "";
+    return entity;
 }
 
-export function removeBartenderNpcs() {
-    bartenderNpcs.forEach(e => engine.removeEntity(e));
-    bartenderNpcs = [];
-}
 
-export function addDanceManager() {
-    DANCE_POSITIONS.forEach((pos, index) => {
-        const npc = createNPC(pos, BODY_SHAPES[index % BODY_SHAPES.length], DANCE_WEARABLES[index], HAIR_COLORS[index % HAIR_COLORS.length], SKIN_COLORS[index % SKIN_COLORS.length]);
-        danceNpcs.push(npc);
+
+
+
+
+
+
+
+
+function startNpcDance(npcs: Entity[]): void {
+    console.log('Starting dance for NPCs...');
+    npcs.forEach((npc, index) => {
+      const av = AvatarShape.getMutable(npc);
+      av.expressionTriggerId = DANCE_MOVES[index % DANCE_MOVES.length];
     });
-    SITTING_POSITIONS.forEach((pos, index) => {
-        const npc = createNPC(pos, BODY_SHAPES[index % BODY_SHAPES.length], DANCE_WEARABLES[index], HAIR_COLORS[index % HAIR_COLORS.length], SKIN_COLORS[index % SKIN_COLORS.length]);
-        sittingNpcs.push(npc);
-    });
-    startNpcDance();
-}
+  }
+  
 
-export function removeDanceNpcs() {
-    danceNpcs.forEach(e => engine.removeEntity(e));
-    danceNpcs = [];
-    sittingNpcs.forEach(e => engine.removeEntity(e))
-    sittingNpcs = []
-}
-
-export function addGalleryManager_1() {
-    GALLERY_POSITIONS_1.forEach((pos, index) => {
-        const npc = createNPC(pos, BODY_SHAPES[index % BODY_SHAPES.length], DANCE_WEARABLES[index], HAIR_COLORS[index % HAIR_COLORS.length], SKIN_COLORS[index % SKIN_COLORS.length]);
-        galleryNpcs_1.push(npc);
-    });
-
-
+// Add npcs to room
+export function addNPCsToRoom(positions: any[], roomIndex: number): void {
+    const npcs = positions.map((pos, index) =>
+    createNPC(pos, BODY_SHAPES[index % BODY_SHAPES.length], DANCE_WEARABLES[index % DANCE_WEARABLES.length], HAIR_COLORS[index % HAIR_COLORS.length], SKIN_COLORS[index % SKIN_COLORS.length])
+);
+npcArrays[roomIndex] = npcs;
 }
 
 
-export function removeGalleryNpcs_1() {
-    galleryNpcs_1.forEach(e => engine.removeEntity(e));
-    galleryNpcs_1 = [];
-
-}
-
-export function addGalleryManager_2() {
-    //add bartender in here
-    GALLERY_POSITIONS_2.forEach((pos, index) => {
-        const npc = createNPC(pos, BODY_SHAPES[index % BODY_SHAPES.length], DANCE_WEARABLES[index], HAIR_COLORS[index % HAIR_COLORS.length], SKIN_COLORS[index % SKIN_COLORS.length])
-        galleryNpcs_2.push(npc)
-        const av = AvatarShape.getMutable(npc)
-        av.expressionTriggerId = CUSTOM_EMOTES[index % CUSTOM_EMOTES.length]
-    })
-}
-
-export function removeGalleryNpcs_2() {
-    galleryNpcs_2.forEach(e => engine.removeEntity(e));
-    galleryNpcs_2 = []
-}
-
-export function addSitManager() {
-    SITTING_POSITIONS.forEach((pos, index) => {
-        const npc = createNPC(pos, BODY_SHAPES[index % BODY_SHAPES.length], DANCE_WEARABLES[index], HAIR_COLORS[index % HAIR_COLORS.length], SKIN_COLORS[index % SKIN_COLORS.length])
-        sittingNpcs.push(npc)
-        const av = AvatarShape.getMutable(npc)
-        av.expressionTriggerId = CUSTOM_EMOTES[index % CUSTOM_EMOTES.length]
-    })
-}
-
-export function removeSitNpcs() {
-    sittingNpcs.forEach(e => engine.removeEntity(e));
-    sittingNpcs = []
-}
-
-function addNPCToRoom(npc: Entity, roomIndex: number) {
-    npcArrays[roomIndex].push(npc);
-}
-
-function removeNPCsFromRoom(roomIndex: number) {
-    const npcsToRemove = npcArrays[roomIndex];
-    npcsToRemove.forEach(npc => engine.removeEntity(npc));
-    npcArrays[roomIndex] = [];
-}
-
-export function spawnNPCsBasedOnRoom(roomIndex: number) {
-    if (roomIndex === 0) {
-        bartenderNpcs.forEach(npc => addNPCToRoom(npc, roomIndex));
-    } else if (roomIndex === 1) {
-        danceNpcs.forEach(npc => addNPCToRoom(npc, roomIndex));
-    } else if (roomIndex === 2) {
-        galleryNpcs_1.forEach(npc => addNPCToRoom(npc, roomIndex));
-    } else if (roomIndex === 3) {
-        galleryNpcs_2.forEach(npc => addNPCToRoom(npc, roomIndex));
+// Remove npcs from room
+export function removeNPCsFromRoom(roomIndex: number): void {
+    if (npcArrays[roomIndex]) {
+        npcArrays[roomIndex].forEach((npc) => engine.removeEntity(npc))
+        npcArrays[roomIndex] = [];
     }
 }
 
-export function despawnNPCsBasedOnRoom(roomIndex: number) {
-    removeNPCsFromRoom(roomIndex);
+
+// Main functions
+export function addBartenderManager(): void {
+    addNPCsToRoom(BARTENDER_POSITIONS, 0);
 }
+
+export function removeBartenderNpcs(): void {
+    removeNPCsFromRoom(0);
+}
+
+export function addSitManager(): void {
+    console.log('Adding sitting NPCs...');
+    removeSitNpcs();
+  
+    const sittingEntities = SITTING_POSITIONS.map((pos, index) =>
+      createNPC(
+        pos,
+        BODY_SHAPES[index % BODY_SHAPES.length],
+        DANCE_WEARABLES[index % DANCE_WEARABLES.length],
+        HAIR_COLORS[index % HAIR_COLORS.length],
+        SKIN_COLORS[index % SKIN_COLORS.length]
+      )
+    );
+  
+    sittingEntities.forEach((npc, index) => {
+      const av = AvatarShape.getMutable(npc);
+     // av.expressionTriggerId = index % 2 === 0 ? 'Idle' : 'clap'; // Alternate between Idle and clap
+    });
+  
+    npcArrays[SITTING_ROOM_INDEX] = sittingEntities;
+    console.log(`Sitting NPCs added: ${sittingEntities.length}`);
+  }
+  
+  
+
+export function removeSitNpcs(): void {
+    console.log('Removing sitting npcs');
+    removeNPCsFromRoom(SITTING_ROOM_INDEX);
+}
+
+let danceFlag: Boolean = true
+export function addDanceManager(): void {
+    console.log('Adding dancing NPCs...');
+  
+    // Clear existing dancers
+    removeDanceNpcs();
+  
+    const danceEntities = DANCE_POSITIONS.map((pos, index) =>
+      createNPC(
+        pos,
+        BODY_SHAPES[index % BODY_SHAPES.length],
+        DANCE_WEARABLES[index % DANCE_WEARABLES.length],
+        HAIR_COLORS[index % HAIR_COLORS.length],
+        SKIN_COLORS[index % SKIN_COLORS.length]
+      )
+    );
+  
+    npcArrays[1] = danceEntities; // Track dancers in room 1
+    startNpcDance(danceEntities);
+  
+    console.log(`Dancers added: ${danceEntities.length}`);
+  }
+  
+
+export function removeDanceNpcs(): void {
+    if (!danceFlag) {
+        removeNPCsFromRoom(1);
+    }
+    else return
+}
+
+export function addGalleryManager_1(): void {
+    console.log('Adding NPCs for Gallery 1...');
+    removeGalleryNpcs_1();
+  
+    const galleryEntities = GALLERY_POSITIONS_1.map((pos, index) =>
+      createNPC(
+        pos,
+        BODY_SHAPES[index % BODY_SHAPES.length],
+        DANCE_WEARABLES[index % DANCE_WEARABLES.length],
+        HAIR_COLORS[index % HAIR_COLORS.length],
+        SKIN_COLORS[index % SKIN_COLORS.length]
+      )
+    );
+  
+    npcArrays[2] = galleryEntities; // Track NPCs in room 2
+    console.log(`NPCs added to Gallery 1: ${galleryEntities.length}`);
+  }
+  
+
+export function removeGalleryNpcs_1(): void {
+    removeNPCsFromRoom(2);
+
+}
+
+export function addGalleryManager_2(): void {
+    console.log('Adding NPCs for Vons...');
+    removeGalleryNpcs_2();
+
+    const galleryEntities = GALLERY_POSITIONS_2.map((pos, index) =>
+        createNPC(
+            pos,
+            BODY_SHAPES[index % BODY_SHAPES.length],
+            DANCE_WEARABLES[index % DANCE_WEARABLES.length],
+            HAIR_COLORS[index % HAIR_COLORS.length],
+            SKIN_COLORS[index % SKIN_COLORS.length]
+        )
+    );
+
+    galleryEntities.forEach((npc, index) => {
+        const av = AvatarShape.getMutable(npc);
+        av.expressionTriggerId = index % 2 === 0 ? 'clap' : 'Idle'; // Alternate between predefined animations
+    });
+
+    npcArrays[3] = galleryEntities; // Track NPCs in room 3
+    console.log(`NPCs added to Vons: ${galleryEntities.length}`);
+}
+
+  
+
+export function removeGalleryNpcs_2(): void {
+    removeNPCsFromRoom(3);
+}
+
+function getPositionsForRoom(roomIndex: number): { position: Vector3; rotation: Quaternion; scale: Vector3 }[] | null {
+    switch (roomIndex) {
+      case 0:
+        return BARTENDER_POSITIONS;
+      case 1:
+        return DANCE_POSITIONS;
+      case 2:
+        return GALLERY_POSITIONS_1;
+      case 3:
+        return GALLERY_POSITIONS_2;
+      case 4:
+        return SITTING_POSITIONS;
+      default:
+        return null;
+    }
+  }
+
+
+export function spawnNPCsBasedOnRoom(roomIndex: number): void {
+    console.log(`Spawning NPCs for room: ${roomIndex}`);
+   removeNPCsFromRoom(roomIndex)
+    
+   const npcPositions = getPositionsForRoom(roomIndex); // Helper function to get positions
+  
+    if (!npcPositions) return;
+
+  
+    const npcs = npcPositions.map((pos, index) => {
+      const npc = createNPC(
+        pos,
+        BODY_SHAPES[index % BODY_SHAPES.length],
+        DANCE_WEARABLES[index % DANCE_WEARABLES.length],
+        HAIR_COLORS[index % HAIR_COLORS.length],
+        SKIN_COLORS[index % SKIN_COLORS.length]
+    );
+  
+    //npcArrays[roomIndex] = npcs; // Track the recreated NPCs
+    const av = AvatarShape.getMutable(npc);
+    //av.expressionTriggerId = index % 2 === 0 ? 'Idle' : 'clap';
+    return npc;
+});
+npcArrays[roomIndex] = npcs
+console.log(`NPCs spawned for room ${roomIndex}: ${npcs.length}`);
+}
+
+  export function despawnNPCsBasedOnRoom(roomIndex: number): void {
+    console.log(`Despawning NPCs for room: ${roomIndex}`);
+    removeNPCsFromRoom(roomIndex); // Clear all entities from the room's array
+  }
+  
