@@ -14,6 +14,7 @@ import { isParty } from "./config";
 
 export function main() {
   createElevator()
+  createFrontScreens()
   const elevatorButtons = ElevatorModule.initializeElevatorButtons();
   const callButtons = ElevatorModule.initializeElevatorCallButtons();
   //addRaptureEmoters();
@@ -26,7 +27,6 @@ export function main() {
   createBuilding()
    createStream()
   //stopStream()
-  createFrontScreens()
   if (isParty) {
     VLM.init({})
     //console.log(VLM.getState)

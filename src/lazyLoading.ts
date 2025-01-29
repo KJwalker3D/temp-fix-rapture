@@ -215,6 +215,7 @@ function handleAreaExit(id: number, videos: Entity[], images: Entity[], kinetics
       removeGalleryNpcs_2();
       createFrontScreens();
   } else {
+    console.log(`Default case: Recreating front screens`);
       createFrontScreens();
   }
 }

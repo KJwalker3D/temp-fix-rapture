@@ -56,7 +56,9 @@ function entityExists(entity: Entity): boolean {
 
 export function turnOffFrontScreens() {
     if (entityExists(frontScreenLeft)) engine.removeEntity(frontScreenLeft);
+    console.log("removing frontscreenleft")
     if (entityExists(frontScreenRight)) engine.removeEntity(frontScreenRight);
+    console.log("removing front screen right")
     frontScreensVisible = false;
 }
 

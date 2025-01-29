@@ -1,4 +1,4 @@
-import { movePlayerTo, triggerSceneEmote } from '~system/RestrictedActions';
+import { movePlayerTo, triggerEmote, triggerSceneEmote } from '~system/RestrictedActions';
 import { engine, Transform, MeshCollider, pointerEventsSystem, InputAction, Entity, MeshRenderer } from '@dcl/sdk/ecs';
 import { Quaternion, Vector3 } from '@dcl/sdk/math';
 import * as utils from '@dcl-sdk/utils';
@@ -95,7 +95,7 @@ function createEmoter(config: { position: Vector3, rotation: Quaternion, scale: 
     const distanceCheckInterval = utils.timers.setInterval(() => {
       const distance = Vector3.distance(initialPosition, playerTransform.position);
       if (distance > 0.15) {
-        triggerSceneEmote({ src: "Idle", loop: false });
+        triggerEmote({ predefinedEmote: 'dab' });
         utils.timers.clearTimeout(sitTimer);
         utils.timers.clearInterval(distanceCheckInterval);
       }
