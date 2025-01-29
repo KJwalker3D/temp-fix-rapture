@@ -7,124 +7,80 @@ const spiralClip1 = 'espiral1'
 const spiralClip2 = 'espiral2'
 const spiralClip3 = 'espiral3'
 
-const lightEntity: Entity = engine.addEntity()
-const lightEntity2: Entity = engine.addEntity()
+const lightEntities: Entity[] = [engine.addEntity(), engine.addEntity()]
 
-let lightStartTime: number | null = null
 const LIGHT_ON_DURATION = 5 * 60 * 1000 // 5 minutes in milliseconds
-
+let lightStartTime: number | null = null
 let isLightOn: boolean = false
 
-function showSpiral() {
-    if (!isLightOn) {
 
-        Transform.create(lightEntity, {
-            position: Vector3.create(8.24, 35.16, 32.16),
-            rotation: Quaternion.fromEulerDegrees(0, 90, 0),
-            scale: Vector3.create(.25, .25, .25)
-        })
-        Transform.create(lightEntity2, {
-            position: Vector3.create(-9.53, 35.28, 32),
-            rotation: Quaternion.fromEulerDegrees(0, -90, 0),
-            scale: Vector3.create(.25, .25, .25)
-        })
-        GltfContainer.create(lightEntity, {
-            src: spiralLight
-        })
-    
-        GltfContainer.create(lightEntity2, {
-            src: spiralLight
-        })
-    
-        Animator.create(lightEntity, {
-            states: [
-                {
-                    clip: spiralClip1,
-                    playing: true,
-                    loop: true
-                },
-                {
-                    clip: spiralClip2,
-                    playing: false,
-                    loop: true
-                },
-                {
-                    clip: spiralClip3,
-                    playing: false,
-                    loop: true
-                }
-            ]
-        })
-    
-        Animator.create(lightEntity2, {
-            states: [
-                {
-                    clip: spiralClip1,
-                    playing: true,
-                    loop: true
-                },
-                {
-                    clip: spiralClip2,
-                    playing: false,
-                    loop: true
-                },
-                {
-                    clip: spiralClip3,
-                    playing: false,
-                    loop: true
-                }
-            ]
-        })
+// set up spirals once
+lightEntities.forEach((entity, index) => {
+    Transform.create(entity, {
+        position: index === 0
+        ? Vector3.create(8.24, 35.16, 32.16)
+        : Vector3.create(-9.53, 35.28, 32),
+        rotation: index === 0
+        ? Quaternion.fromEulerDegrees(0, 90, 0)
+        : Quaternion.fromEulerDegrees(0, -90, 0),
+        scale: Vector3.create(0.25, 0.25, 0.25)
+    })
 
-        isLightOn = true
+    GltfContainer.create(entity, { src: spiralLight })
 
-    }
-}
-
-function hideSpiral() {
-    if (isLightOn) {
-        GltfContainer.deleteFrom(lightEntity)
-        Animator.deleteFrom(lightEntity)
-        Transform.deleteFrom(lightEntity)
-
-        GltfContainer.deleteFrom(lightEntity2)
-        Animator.deleteFrom(lightEntity2)
-        Transform.deleteFrom(lightEntity2)
-
-
-        isLightOn = false
-    }
-}
-
-export function toggleSpiral(dt: number) {
-    const currentTime = new Date()
-    const currentMinutes = currentTime.getMinutes()
-    const currentSeconds = currentTime.getSeconds()
-    console.log(`Time is ${currentMinutes}:${currentSeconds}`);
-
-    // Check if it's on the hour and we haven't already started the light
-    if (currentMinutes === 0 && currentSeconds === 0 && lightStartTime === null) {
-        showSpiral()
-        lightStartTime = Date.now()
-        console.log('show spiral')
-    }
-
-    // Check if the light should be turned off
-    if (lightStartTime !== null && Date.now() - lightStartTime > LIGHT_ON_DURATION) {
-        hideSpiral()
-        lightStartTime = null
-        console.log('hide spiral')
-    }
-}
-
-// Synchronize light status for new players
-engine.addSystem(() => {
-    if (isLightOn && !GltfContainer.has(lightEntity)) {
-        showSpiral()
-    } else if (!isLightOn && GltfContainer.has(lightEntity)) {
-        hideSpiral()
-    }
+    Animator.create(entity, {
+        states: [
+            { clip: spiralClip1, playing: false, loop: true },
+            { clip: spiralClip2, playing: false, loop: true },
+            { clip: spiralClip3, playing: false, loop: true }
+        ]
+    })
 })
 
-// Optionally, you can export the functions for manual control if needed
+function showSpiral(): void {
+    if (isLightOn) return
+
+    lightEntities.forEach(entity => {
+        Animator.getMutable(entity).states.forEach(state => {
+            state.playing = state.clip === spiralClip1
+        })
+    })
+
+    isLightOn = true
+    lightStartTime = Date.now()
+    console.log("spiral activated")
+}
+
+function hideSpiral(): void {
+    if (!isLightOn) return
+
+    lightEntities.forEach(entity => {
+        Animator.getMutable(entity).states.forEach(state => state.playing = false)
+    })
+
+    isLightOn = false
+    lightStartTime = null
+    console.log("spiral light deactivated")
+}
+
+function checkSpiralTiming(): void {
+    const now = new Date()
+    const currentMinutes = now.getMinutes()
+    const currentSeconds = now.getSeconds()
+
+    console.log(`Checking time: ${currentMinutes}:${currentSeconds}`)
+
+     // Activate at the start of an hour
+     if (currentMinutes === 0 && currentSeconds === 0 && lightStartTime === null) {
+        showSpiral()
+    }
+    
+    // Turn off after duration
+    if (lightStartTime !== null && Date.now() - lightStartTime > LIGHT_ON_DURATION) {
+        hideSpiral()
+    }
+
+}
+
+utils.timers.setInterval(checkSpiralTiming, 10000)
 export { showSpiral, hideSpiral }
