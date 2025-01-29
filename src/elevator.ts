@@ -14,133 +14,89 @@ const floors = [
   { name: 'Rooftop', height: 30.75 }
 ];
 
+// map buttons for ease
+const floorButtonMap: Map<number, Entity> = new Map();
+const callButtonMap: Map<number, Entity[]> = new Map();
+
 function calculateDuration(distance: number): number {
   return distance / 2.5; // Adjust as needed
 }
 
-async function moveToFloor(floorIndex: number): Promise<void> {
-  if (isMoving) {
-    throw new Error('Elevator is already in motion');
-  }
-  
-  if (floorIndex === currentFloor) {
-    return;
-  }
-  
+
+function moveToFloor(floorIndex: number): void {
+  if (isMoving || floorIndex === currentFloor) return;
+
   isMoving = true;
-  
+
   const targetHeight = floors[floorIndex].height;
   const targetPosition = Vector3.create(-15.945, targetHeight, 0);
-  
-  const currentPosition = Transform.get(elevator).position;
+
+  const currentPosition = Transform.getMutable(elevator).position;
   const distance = Vector3.distance(targetPosition, currentPosition);
   const duration = calculateDuration(distance);
 
-  await new Promise<void>((resolve) => {
-    utils.tweens.startTranslation(elevator, currentPosition, targetPosition, duration, utils.InterpolationType.LINEAR, () => {
-      // Recreate the transform component with the new target position
-      Transform.createOrReplace(elevator, { position: targetPosition });
-      
+  utils.tweens.startTranslation(
+    elevator, currentPosition, targetPosition, duration, utils.InterpolationType.LINEAR,
+    () => {
+      Transform.getMutable(elevator).position = targetPosition;
       isMoving = false;
       currentFloor = floorIndex;
-      console.log('Elevator reached floor:', floors[floorIndex].name);
-      resolve();
-    });
-  });
+    }
+  );
 }
 
-export async function createElevator(): Promise<void> {
-  Transform.create(elevator, { position: Vector3.create(-15.945, 0, 0) });
+export function createElevator(): void {
+  Transform.create(elevator, { position: Vector3.create(-15.945, 0, 0)});
   GltfContainer.create(elevator, {
     src: 'models/elevator3.glb',
     visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS | ColliderLayer.CL_POINTER
   });
 }
-function createElevatorButtons(floorName: string, height: number) {
+
+function createElevatorButton(floorIndex: number): Entity {
   const buttonEntity = engine.addEntity();
-  const button = GltfContainer.create(buttonEntity, {
+  const buttonModelSrc = [
+    'models/2.glb',
+    'models/M.glb',
+    'models/3.glb',
+    'models/4.glb'
+  ][floorIndex];
+
+  Transform.create(buttonEntity, {
+    position: Vector3.create(16.9 - 0.6 * floorIndex, 5.5, 4),
+    parent: elevator
+  });
+
+  GltfContainer.create(buttonEntity, {
     src: 'models/elevatorButton.glb',
     visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS | ColliderLayer.CL_POINTER
   });
 
-  const numberModel = engine.addEntity();
-  let numberModelSrc = '';
-
-  switch (floorName) {
-    case 'First Floor':
-      numberModelSrc = 'models/2.glb';
-      break;
-    case 'Mezzanine':
-      numberModelSrc = 'models/M.glb';
-      break;
-    case 'Second Floor':
-      numberModelSrc = 'models/3.glb';
-      break;
-    case 'Rooftop':
-      numberModelSrc = 'models/4.glb';
-      break;
-    default:
-      numberModelSrc = '';
+  if (buttonModelSrc) {
+    const numberModel = engine.addEntity();
+    Transform.create(numberModel, { position: Vector3.Zero(), parent: buttonEntity });
+    GltfContainer.create(numberModel, { src: buttonModelSrc });
   }
 
-  Transform.create(numberModel, {
-    position: Vector3.create(0, -0, 0),
-    parent: buttonEntity,
-    scale: Vector3.One() // Adjust scale as needed
-  });
+  floorButtonMap.set(floorIndex, buttonEntity);
 
-  GltfContainer.create(numberModel, {
-    src: numberModelSrc
-  });
+  pointerEventsSystem.onPointerDown(
+    { entity: buttonEntity, opts: { button: InputAction.IA_POINTER, hoverText: `Go to ${floors[floorIndex].name}`, maxDistance: 12} },
+    () => moveToFloor(floorIndex)
+  );
 
-  return buttonEntity;
+  return buttonEntity
 }
 
-
-function initializeElevatorButtons(): Entity[] {
-  const buttons: Entity[] = [];
-  const buttonOffsetX = -0.6;
-  const buttonHeight = 0.5;
-
-  floors.forEach((floor, index) => {
-    const buttonEntity = createElevatorButtons(floor.name, floor.height);
-    const buttonPositionX = 16.9 + buttonOffsetX * index;
-    const buttonPositionY = 5 + buttonHeight;
-  
-    Transform.create(buttonEntity, {
-      position: Vector3.create(buttonPositionX, buttonPositionY, 4),
-      parent: elevator,
-      scale: Vector3.create(1, 1, 1)
-    });
-
-    buttons.push(buttonEntity);
-  
-    pointerEventsSystem.onPointerDown(
-      {
-        entity: buttonEntity, 
-        opts: {
-          button: InputAction.IA_POINTER,
-          hoverText: `Go to ${floor.name}`,
-          maxDistance: 12,
-        },
-      },
-      () => {
-        moveToFloor(index);
-      }
-    );
-  });
-
-  return buttons;
+function initializeElevatorButtons(): void {
+  floors.forEach((_floor, index) => createElevatorButton(index));
 }
 
-function createElevatorCallButton(floorName: string, height: number, isRightSide: boolean): Entity {
-  const callButton = engine.addEntity();
-  const xOffset = isRightSide ? 12.75 : -12.75;
-  const position = Vector3.add(Vector3.create(xOffset, 0.85 + height, 1.75), isRightSide ? Vector3.Left() : Vector3.Right());
+function createCallButton(floorIndex: number, position: Vector3): Entity {
+  const callButton = engine.addEntity()
 
   Transform.create(callButton, {
-    position: position,
-    scale: Vector3.create(1, 1, 1)
+    position: Vector3.create(position.x, floors[floorIndex].height + position.y, position.z), // Adjust height properly    scale: Vector3.One()
   });
 
   GltfContainer.create(callButton, {
@@ -148,84 +104,32 @@ function createElevatorCallButton(floorName: string, height: number, isRightSide
     visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS | ColliderLayer.CL_POINTER
   });
 
-  return callButton;
-}
-
-interface ButtonPosition {
-  xOffset: number;
-  yOffset: number;
-  zOffset: number;
-  isRightSide: boolean;
-}
-
-export const buttonPositions: ButtonPosition[][] = [
-  // array for ground floor
-  [
-    { xOffset: -8.6, yOffset: 0.8, zOffset: 4.9, isRightSide: true },
-    { xOffset: 8.9, yOffset: 0.8, zOffset: 4.9, isRightSide: false },
-  ],
-  // mezzanine
-  [
-    { xOffset: -13.75, yOffset: 4.1, zOffset: 1.4, isRightSide: false },
-    { xOffset: 13.75, yOffset: 4.1, zOffset: 1.4, isRightSide: true },
-  ],
-  // first floor
-  [
-    { xOffset: 1.1, yOffset: 3.9, zOffset: 1.4, isRightSide: true },
-  ],
-  // rooftop
-  [
-    { xOffset: 7.2, yOffset: 3.9, zOffset: 4.5, isRightSide: true },
-  ]
-];
-
-function initializeElevatorCallButtons(): Entity[] {
-  const buttons: Entity[] = [];
-
-  for (let index = 0; index < floors.length; index++) {
-    const positionsForFloor = buttonPositions[index];
-
-    if (positionsForFloor) {
-      for (let buttonIndex = 0; buttonIndex < positionsForFloor.length; buttonIndex++) {
-        const position = positionsForFloor[buttonIndex];
-        const floor = floors[index];
-
-        const callButton = createElevatorCallButton(floor.name, floor.height, position.isRightSide);
-
-        const callButtonPosition = Vector3.add(
-          Vector3.create(position.xOffset, position.yOffset + floor.height, position.zOffset),
-          position.isRightSide ? Vector3.Left() : Vector3.Right()
-        );
-
-        Transform.createOrReplace(callButton, {
-          position: callButtonPosition,
-          scale: Vector3.create(1, 1, 1),
-        });
-
-        pointerEventsSystem.onPointerDown(
-          {
-            entity: callButton,
-            opts: {
-              button: InputAction.IA_POINTER,
-              hoverText: `Call Elevator`,
-              maxDistance: 15,
-            },
-          },
-          () => {
-            if (currentFloor === index) {
-              console.log(`Elevator is already at ${floor.name}`);
-            } else {
-              moveToFloor(index);
-            }
-          }
-        );
-
-        buttons.push(callButton);
+  pointerEventsSystem.onPointerDown(
+    { entity: callButton, opts: { button: InputAction.IA_POINTER, hoverText: `Call Elevator`, maxDistance: 16} },
+    () => {
+      if (currentFloor === floorIndex) {
+        console.log('elevator is already at this floor')
+      } else {
+        moveToFloor(floorIndex)
       }
     }
-  }
+  );
 
-  return buttons;
+  return callButton
+}
+
+
+function initializeElevatorCallButtons(): void {
+  const positions = [
+    [Vector3.create(-8.6, 0.8, 4.9), Vector3.create(8.9, 0.8, 4.9)], // First Floor
+    [Vector3.create(-13.75, 4.1, 1.4), Vector3.create(13.75, 4.1, 1.4)], // Mezzanine
+    [Vector3.create(1.1, 3.9, 1.4)], // Second Floor
+    [Vector3.create(7.2, 3.9, 4.5)]  // Rooftop
+  ];
+
+  positions.forEach((floorPositions, floorIndex) => {
+    callButtonMap.set(floorIndex, floorPositions.map(pos => createCallButton(floorIndex, pos)));
+  });
 }
 
 export const ElevatorModule = {
@@ -234,3 +138,6 @@ export const ElevatorModule = {
   initializeElevatorButtons,
   initializeElevatorCallButtons
 };
+
+
+
