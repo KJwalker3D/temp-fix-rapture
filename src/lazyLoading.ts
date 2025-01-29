@@ -10,13 +10,15 @@ import {
   addGalleryManager_1,
   addGalleryManager_2,
   addSitManager,
+  startNpcDance,
   removeBartenderNpcs,
   removeDanceNpcs,
   removeGalleryNpcs_1,
   removeGalleryNpcs_2,
   removeSitNpcs,
   spawnNPCsBasedOnRoom,
-  removeNPCsFromRoom
+  removeNPCsFromRoom,
+  npcArrays
 } from './npcs'
 import { createStream, stopStream, toggleStream } from './playlist';
 import { createFrontScreens, toggleFrontScreens, turnOffFrontScreens } from './frontPosters';
@@ -151,43 +153,72 @@ function handleArea3Entry(): void {
 
 async function handleRoofEntry(): Promise<void> {
   if (frontScreensActive) turnOffFrontScreens();
-  addDanceManager();
+
+  // Clean up rooftop NPCs and reset states
+  console.log('Removing existing rooftop NPCs...');
+  removeDanceNpcs();
+  removeSitNpcs();
+  removeEmoters('rooftop');
+
+  // Add new NPCs and managers
+  addDanceManager(); // Adds dancers to npcArrays[1]
+  addSitManager();
   createDJ();
   addEmoters('rooftop'); // Add rooftop emoters
-  removeSitNpcs();
-  addSitManager();
 
-  if (isParty) {
-    console.log('Entering Roof (Party Mode)');
-    stopStream();
+  // Delay to ensure NPC initialization
+  await new Promise<void>((resolve) => {
+      utils.timers.setTimeout(() => {
+          resolve();
+      }, 1000);
+  });
+
+  // Debug: Log npcArrays[1] before restarting animations
+  console.log('Rooftop dancers after reentry:', npcArrays[1]);
+
+  // Restart dance animations for rooftop dancers
+  if (npcArrays[1] && npcArrays[1].length > 0) {
+      console.log('Restarting dance animations for rooftop dancers...');
+      startNpcDance(npcArrays[1]);
   } else {
-    console.log('Entering Roof (Non-Party Mode)');
-    await toggleStream();
+      console.log('No rooftop dancers found in npcArrays[1].');
+  }
+
+  // Handle party mode
+  if (isParty) {
+      console.log('Entering Roof (Party Mode)');
+      stopStream();
+  } else {
+      console.log('Entering Roof (Non-Party Mode)');
+      await toggleStream();
   }
 }
 
 
+
 function handleAreaExit(id: number, videos: Entity[], images: Entity[], kinetics: Entity[]): void {
   clearArtEntities(videos, images, kinetics);
-
-  
-   //   removeNPCsFromRoom(id); // Remove for other areas
-  
 
   if (id === 4) {
       toggleStream();
       removeDJ();
       console.log(`Exiting Roof (ID: ${id})`);
       removeSitNpcs();
+      removeDanceNpcs(); // Ensure dancers are removed when exiting the roof
       removeEmoters('rooftop');
+  } else if (id === 1) {
+      removeGalleryNpcs_1();
+      toggleEmoters('rapture');
+      createFrontScreens();
+  } else if (id === 3) {
+      toggleEmoters('vons');
+      removeGalleryNpcs_2();
+      createFrontScreens();
+  } else {
+      createFrontScreens();
   }
-
-  else if (id === 1) {
-    removeGalleryNpcs_1()
-    toggleEmoters('rapture');
-  }
-  toggleEmoters('vons');
 }
+
 
 export function createAllLazyAreas(): void {
   console.log("created lazy areas")

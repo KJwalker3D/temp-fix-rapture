@@ -184,7 +184,7 @@ const BARTENDER_WEARABLES: string[] = [
 const SITTING_ROOM_INDEX = 4;
 
 // State management
-const npcArrays: { [key: number]: Entity[] } = {};
+export const npcArrays: { [key: number]: Entity[] } = {};
 
 
 // Helper functions
@@ -215,13 +215,15 @@ function createNPC(
 
 
 
-function startNpcDance(npcs: Entity[]): void {
+export function startNpcDance(npcs: Entity[]): void {
     console.log('Starting dance for NPCs...');
     npcs.forEach((npc, index) => {
       const av = AvatarShape.getMutable(npc);
       av.expressionTriggerId = DANCE_MOVES[index % DANCE_MOVES.length];
+      console.log(`NPC ${npc} is now performing: ${DANCE_MOVES[index % DANCE_MOVES.length]}`);
     });
   }
+  
   
 
 // Add npcs to room
@@ -281,10 +283,9 @@ export function removeSitNpcs(): void {
     removeNPCsFromRoom(SITTING_ROOM_INDEX);
 }
 
-let danceFlag: Boolean = true
 export function addDanceManager(): void {
     console.log('Adding dancing NPCs...');
-  
+    
     // Clear existing dancers
     removeDanceNpcs();
   
@@ -299,18 +300,19 @@ export function addDanceManager(): void {
     );
   
     npcArrays[1] = danceEntities; // Track dancers in room 1
+    console.log('Rooftop dancers initialized:', danceEntities);
+  
+    // Start dancing immediately after adding
     startNpcDance(danceEntities);
-  
-    console.log(`Dancers added: ${danceEntities.length}`);
-  }
-  
+    console.log(`Dancers added and animations started: ${danceEntities.length}`);
+}
+
 
 export function removeDanceNpcs(): void {
-    if (!danceFlag) {
-        removeNPCsFromRoom(1);
-    }
-    else return
+    console.log('Removing dancers...');
+    removeNPCsFromRoom(1); // Ensure dancers are properly removed from room index 1
 }
+
 
 export function addGalleryManager_1(): void {
     console.log('Adding NPCs for Gallery 1...');
@@ -383,32 +385,34 @@ function getPositionsForRoom(roomIndex: number): { position: Vector3; rotation: 
   }
 
 
-export function spawnNPCsBasedOnRoom(roomIndex: number): void {
+  export function spawnNPCsBasedOnRoom(roomIndex: number): void {
     console.log(`Spawning NPCs for room: ${roomIndex}`);
-   removeNPCsFromRoom(roomIndex)
-    
-   const npcPositions = getPositionsForRoom(roomIndex); // Helper function to get positions
-  
+    removeNPCsFromRoom(roomIndex); // Clear existing NPCs for the room
+
+    const npcPositions = getPositionsForRoom(roomIndex); // Helper function to get positions
+
     if (!npcPositions) return;
 
-  
-    const npcs = npcPositions.map((pos, index) => {
-      const npc = createNPC(
-        pos,
-        BODY_SHAPES[index % BODY_SHAPES.length],
-        DANCE_WEARABLES[index % DANCE_WEARABLES.length],
-        HAIR_COLORS[index % HAIR_COLORS.length],
-        SKIN_COLORS[index % SKIN_COLORS.length]
+    const npcs = npcPositions.map((pos, index) =>
+        createNPC(
+            pos,
+            BODY_SHAPES[index % BODY_SHAPES.length],
+            DANCE_WEARABLES[index % DANCE_WEARABLES.length],
+            HAIR_COLORS[index % HAIR_COLORS.length],
+            SKIN_COLORS[index % SKIN_COLORS.length]
+        )
     );
-  
-    //npcArrays[roomIndex] = npcs; // Track the recreated NPCs
-    const av = AvatarShape.getMutable(npc);
-    //av.expressionTriggerId = index % 2 === 0 ? 'Idle' : 'clap';
-    return npc;
-});
-npcArrays[roomIndex] = npcs
-console.log(`NPCs spawned for room ${roomIndex}: ${npcs.length}`);
+
+    npcArrays[roomIndex] = npcs;
+
+    // Start dancers if it's the rooftop room (index 1)
+    if (roomIndex === 1) {
+        startNpcDance(npcs);
+    }
+
+    console.log(`NPCs spawned for room ${roomIndex}: ${npcs.length}`);
 }
+
 
   export function despawnNPCsBasedOnRoom(roomIndex: number): void {
     console.log(`Despawning NPCs for room: ${roomIndex}`);
