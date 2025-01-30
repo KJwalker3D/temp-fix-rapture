@@ -17,17 +17,15 @@ export function main() {
   createFrontScreens()
   const elevatorButtons = ElevatorModule.initializeElevatorButtons();
   const callButtons = ElevatorModule.initializeElevatorCallButtons();
-  //addRaptureEmoters();
-  //addVonsEmoters();
-  //addRooftopEmoters()
+
   createAllLazyAreas()
   createArtHovers()
   engine.addSystem(artHoverSystem)
   engine.addSystem(changeArtHoverSystem)
   createBuilding()
    createStream()
-  //stopStream()
-  if (isParty) {
+
+   if (isParty) {
     VLM.init({})
     //console.log(VLM.getState)
 

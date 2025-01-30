@@ -27,7 +27,7 @@ import { isParty } from './config';
 import { addEmoters, toggleEmoters, removeEmoters } from './emoteFurnis';
 
 
-let frontScreensActive = true;
+//let frontScreensActive = true;
 let scene1active = true;
 
 // Placeholder
@@ -139,20 +139,20 @@ function clearArtEntities(videos: Entity[], images: Entity[], kinetics: Entity[]
 }
 
 function handleArea1Entry(): void {
-  if (frontScreensActive) turnOffFrontScreens();
+ // if (frontScreensActive) turnOffFrontScreens();
   addGalleryManager_1();
   addEmoters('rapture');
 }
 
 
 function handleArea3Entry(): void {
-  if (frontScreensActive) turnOffFrontScreens();
+ // if (frontScreensActive) turnOffFrontScreens();
   addGalleryManager_2();
   addEmoters('vons');
 }
 
 async function handleRoofEntry(): Promise<void> {
-  if (frontScreensActive) turnOffFrontScreens();
+ // if (frontScreensActive) turnOffFrontScreens();
 
   // Clean up rooftop NPCs and reset states
   console.log('Removing existing rooftop NPCs...');
@@ -209,14 +209,14 @@ function handleAreaExit(id: number, videos: Entity[], images: Entity[], kinetics
   } else if (id === 1) {
       removeGalleryNpcs_1();
       toggleEmoters('rapture');
-      createFrontScreens();
+      //createFrontScreens();
   } else if (id === 3) {
       toggleEmoters('vons');
       removeGalleryNpcs_2();
-      createFrontScreens();
+      //createFrontScreens();
   } else {
     console.log(`Default case: Recreating front screens`);
-      createFrontScreens();
+     // createFrontScreens();
   }
 }
 
