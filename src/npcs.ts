@@ -29,7 +29,7 @@ const GALLERY_POSITIONS_1 = [
 
 const GALLERY_POSITIONS_2 = [
     { position: Vector3.create(1, 19.5, 55), rotation: Quaternion.fromEulerDegrees(0, -50, 0), scale: Vector3.One() },
-    { position: Vector3.create(10, 19.5, 45), rotation: Quaternion.fromEulerDegrees(0, 90, 0), scale: Vector3.One() },
+    { position: Vector3.create(10, 19.5, 49), rotation: Quaternion.fromEulerDegrees(0, 90, 0), scale: Vector3.One() }, //this is not the girl in vons lounge
     { position: Vector3.create(-0.5, 19.5, 60), rotation: Quaternion.fromEulerDegrees(0, 180, 0), scale: Vector3.One() }
 
 
