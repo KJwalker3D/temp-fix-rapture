@@ -362,42 +362,42 @@ export const artRot31 = Vector3.create(0, -90, 0)
 export const artScale31 = Vector3.create(4.262, 4.262, 1)
 
 //Vons Lounge
-// trojan pooh
+// trojan pooh here
 export const artTitle32 = 'Trojan Pooh'
 export const artDescription32 = 'by Beeple'
 export const artLink32 = 'https://twitter.com/VonMises14/status/1770447621640827198'
-export const artPos32 = Vector3.create(-13.27, 23.09, 35.84)
-export const artRot32 = Vector3.create(0, 180, 0)
-export const artScale32 = Vector3.create(2.048, 3.652, 1)
+export const artPos32 = Vector3.create(14, 23.362, 39.69)
+export const artRot32 = Vector3.create(0, 90, 0)
+export const artScale32 = Vector3.create(2.048*.85, 3.652*.85, 1)
 export const artImage32 =  'https://bafkreibooxxya7xnx3ofzvwrsnmo7ciubobrc3uvjuqqxrxnac7gblmpru.ipfs.nftstorage.link/'
 export const artVideo32 = 'https://player.vimeo.com/external/925938362.m3u8?s=ed72e17da69de103006f9675fdd1700e48d95348&logging=false'
-export const artTriggerPos32 = Vector3.create(-10, 23, 40)
+export const artTriggerPos32 = Vector3.create(artPos32.x-8, artPos32.y, artPos32.z + 1)
 export const artTriggerScale32 = Vector3.create(10, 8, 10)
 
-//punk 1111
+//punk 1111 dad
 export const artTitle33 = 'Punk #1111'
 export const artDescription33 = ''
 export const artLink33 = 'https://cryptopunks.app/cryptopunks/details/1111'
 export const artImage33 = 'https://bafkreieclh6jgaoo5v55qlrfpllab7mxs4l3xrgnew336vdw2pcevkhcte.ipfs.nftstorage.link/'
-export const artPos33 = Vector3.create(-15.09, 23.72, 41.478)
+export const artPos33 = Vector3.create(-15.16, 23.729, 39.65)
 export const artRot33 = Vector3.create(0, -90, 0)
 export const artScale33 = Vector3.create(2.098, 2.098, 1)
 
-//punk 3060
+//punk 3060 daughter
 export const artTitle34 = 'Punk #3060'
 export const artDescription34 = ''
 export const artLink34 = 'https://cryptopunks.app/cryptopunks/details/3060'
 export const artImage34 = 'https://bafkreiclxuga2tygjgjnreta3ze2em34ba3sfmbhokkzo2i4nzidlhflqm.ipfs.nftstorage.link/'
-export const artPos34 = Vector3.create(-15.1, 23.72, 48.442)
+export const artPos34 = Vector3.create(-15.16, 23.727, 48.13)
 export const artRot34 = Vector3.create(0, -90, 0)
 export const artScale34 = Vector3.create(2.15, 2.15, 1)
 
-//punk 3321
+//punk 3321 mum
 export const artTitle35 = 'Punk #3321'
 export const artDescription35 = ''
 export const artLink35 = 'https://cryptopunks.app/cryptopunks/details/3321'
 export const artImage35 = 'https://bafkreidt7zbbxfaupdx3sfad6xd2s3mnwxl7dwvzg4yfj4nbljy45nbxte.ipfs.nftstorage.link/'
-export const artPos35 = Vector3.create(-15.1, 23.72, 55.77)
+export const artPos35 = Vector3.create(-15.16, 23.729, 56.585)
 export const artRot35 = Vector3.create(0, -90, 0)
 export const artScale35 = Vector3.create(1.925, 1.925, 1)
 
@@ -406,17 +406,17 @@ export const artTitle36 = 'Flyswatter'
 export const artDescription36 = 'by Dangiuz'
 export const artLink36 = 'https://superrare.com/artwork-v2/flyswatter-35569'
 export const artImage36 = 'https://bafybeifm7tgqlhp7sxxbcsv4cccqgagvzmvkoo5lnqpoay5hgweo3vfpma.ipfs.nftstorage.link/'
-export const artPos36 = Vector3.create(14.91, 23.68, 59.173)
+export const artPos36 = Vector3.create(14, 23.38, 56.61)
 export const artRot36 = Vector3.create(0, 90, 0)
-export const artScale36 = Vector3.create(3.768, 4.709, 1)
+export const artScale36 = Vector3.create(3.768*.7, 4.709*.7, 1)
 
 //last selfie xcopy
 export const artTitle37 = 'Last Selfie'
 export const artDescription37 = 'by XCOPY'
 export const artLink37 = 'https://opensea.io/assets/ethereum/0xfbeef911dc5821886e1dda71586d90ed28174b7d/30104'
-export const artPos37 = Vector3.create(13.18, 23.69, 42.975)
+export const artPos37 = Vector3.create(14, 23.371, 48.22)
 export const artRot37 = Vector3.create(0, 90, 0)
-export const artScale37 = Vector3.create(3.275, 1.9, 1)
+export const artScale37 = Vector3.create(3.275*1.5, 1.9*1.5, 1)
 export const artImage37 =  'https://bafkreihekf6oziwmwe62e3q3wegzra4aelz4qdylm44iorlf2to6uhygdq.ipfs.nftstorage.link/'
 export const artVideo37 = 'https://player.vimeo.com/external/899024473.m3u8?s=fe35bd61192902d4994620b5ceb6ee0a30ddafbd&logging=false'
 export const artTriggerPos37 = Vector3.create(artPos37.x-8, artPos37.y, artPos37.z + 1)

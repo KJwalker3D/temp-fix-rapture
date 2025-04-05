@@ -20,11 +20,11 @@ export function createBuilding() {
     const building = engine.addEntity()
     Transform.create(building, {
       position: Vector3.create(-16, 0, 0),
-      rotation: Quaternion.fromEulerDegrees(0, 180, 0)
+      rotation: Quaternion.fromEulerDegrees(0, 180, 0),
     })
     GltfContainer.create(building, {
-      src: 'models/rapture-new2.glb',
-      visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS || ColliderLayer.CL_POINTER
+      src: 'models/rapture-new3.glb',
+      invisibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS || ColliderLayer.CL_POINTER
     })
   
 }
