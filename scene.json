@@ -3,7 +3,7 @@
   "runtimeVersion": "7",
   "display": {
     "title": "Rapture Art Gallery",
-    "description": "Rapture Art Gallery, including Hope Gallery, Von's Lounge and Club Von. Created by Low Poly Models for VonMises.",
+    "description": "Rapture Art Gallery, including Hope Gallery, Von's Lounge and Club Von. Created by LowPolyModels for VonMises.",
     "navmapThumbnail": "images/scene-thumbnail.png",
     "favicon": "favicon_asset"
   },
@@ -104,11 +104,12 @@
     "player.vimeo.com",
     "player.vimeo.com/external/774332906.m3u8?s=4d32ed0e68a03950b640dfeb6df1228eb64a0bb3"
   ],
-  
-  
   "featureToggles": {
     "voiceChat": "enabled",
     "portableExperiences": "enabled"
+  },
+  "source": {
+    "origin": "creator-hub",
+    "projectId": "07f98065-8fe4-42b3-9394-40d307cfa7d1"
   }
-  
 }

@@ -147,7 +147,8 @@ export function toggleEmoters(type: EmoterType): void {
 }
 
 export function toggleVonsEmoters() {
-  toggleEmoters('vons');
+  //toggleEmoters('vons');
+  // add these back in once furni location is approved
 }
 
 export function toggleRaptureEmoters() {
