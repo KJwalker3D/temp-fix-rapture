@@ -6,22 +6,23 @@ import * as utils from '@dcl-sdk/utils';
 // Emoter configs
 const emoterConfigs = {
   vons: [
-    { position: Vector3.create(10, 19.7, 36.64), rotation: Quaternion.fromEulerDegrees(0, 0, 0), cameraTarget: Vector3.create(-9.5, -30, -47.8), scale: Vector3.create(2.2, 1, 1) },
-    { position: Vector3.create(7, 19.75, 39.644), rotation: Quaternion.fromEulerDegrees(0, 90, 0), cameraTarget: Vector3.create(9.5, -30, 70.8), scale: Vector3.create(1, 1, 0.7) },
+    
+   // { position: Vector3.create(10, 19.7, 36.64), rotation: Quaternion.fromEulerDegrees(0, 0, 0), cameraTarget: Vector3.create(-9.5, -30, -47.8), scale: Vector3.create(2.2, 1, 1) },
+    //{ position: Vector3.create(7, 19.75, 39.644), rotation: Quaternion.fromEulerDegrees(0, 90, 0), cameraTarget: Vector3.create(9.5, -30, 70.8), scale: Vector3.create(1, 1, 0.7) },
 
-    { position: Vector3.create(10, 19.7, 59.655), rotation: Quaternion.fromEulerDegrees(0, 0, 0), cameraTarget: Vector3.create(-9.5, -30, -47.8), scale: Vector3.create(2.2, 1, 1) },
-    { position: Vector3.create(9, 19.75, 56.837), rotation: Quaternion.fromEulerDegrees(0, 45, 0), cameraTarget: Vector3.create(9.5, -30, 70.8), scale: Vector3.create(1, 1, 0.7) },
+   // { position: Vector3.create(10, 19.7, 59.655), rotation: Quaternion.fromEulerDegrees(0, 0, 0), cameraTarget: Vector3.create(-9.5, -30, -47.8), scale: Vector3.create(2.2, 1, 1) },
+   // { position: Vector3.create(9, 19.75, 56.837), rotation: Quaternion.fromEulerDegrees(0, 45, 0), cameraTarget: Vector3.create(9.5, -30, 70.8), scale: Vector3.create(1, 1, 0.7) },
 
-    { position: Vector3.create(-11, 19.7, 59.655), 
-      rotation: Quaternion.fromEulerDegrees(0, 0, 0), cameraTarget: Vector3.create(-9.5, -30, -47.8), scale: Vector3.create(2.2, 1, 1) },
-    { position: Vector3.create(-9, 19.75, 56.82), 
-      rotation: Quaternion.fromEulerDegrees(0, 125, 0), cameraTarget: Vector3.create(9.5, -30, 160.8), scale: Vector3.create(1, 1, 0.7) },
+   // { position: Vector3.create(-11, 19.7, 59.655), 
+   //   rotation: Quaternion.fromEulerDegrees(0, 0, 0), cameraTarget: Vector3.create(-9.5, -30, -47.8), scale: Vector3.create(2.2, 1, 1) },
+   // { position: Vector3.create(-9, 19.75, 56.82), 
+   //   rotation: Quaternion.fromEulerDegrees(0, 125, 0), cameraTarget: Vector3.create(9.5, -30, 160.8), scale: Vector3.create(1, 1, 0.7) },
    
-    { position: Vector3.create(-10.5, 19.7, 36.64), 
-      rotation: Quaternion.fromEulerDegrees(0, 0, 0), cameraTarget: Vector3.create(-9.5, -30, -160.8), scale: Vector3.create(2.2, 1, 1) },
-    { position: Vector3.create(-7, 19.75, 39.644), 
-      rotation: Quaternion.fromEulerDegrees(0, 90, 0), cameraTarget: Vector3.create(9.5, -30, 160.8), scale: Vector3.create(1, 1, 0.7) },
-
+   // { position: Vector3.create(-10.5, 19.7, 36.64), 
+    //  rotation: Quaternion.fromEulerDegrees(0, 0, 0), cameraTarget: Vector3.create(-9.5, -30, -160.8), scale: Vector3.create(2.2, 1, 1) },
+   // { position: Vector3.create(-7, 19.75, 39.644), 
+    //  rotation: Quaternion.fromEulerDegrees(0, 90, 0), cameraTarget: Vector3.create(9.5, -30, 160.8), scale: Vector3.create(1, 1, 0.7) },
+      
   ],
   rapture: [
     { position: Vector3.create(7.3, 1.2, 23), rotation: Quaternion.fromEulerDegrees(0, 90, 0), cameraTarget: Vector3.create(-32, -30, 5), scale: Vector3.create(4, 0.35, 1.5) },

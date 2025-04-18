@@ -23,7 +23,7 @@ export function createBuilding() {
       rotation: Quaternion.fromEulerDegrees(0, 180, 0),
     })
     GltfContainer.create(building, {
-      src: 'models/rapture-new3.glb',
+      src: 'models/rapture-new4.glb',
       invisibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS || ColliderLayer.CL_POINTER
     })
   

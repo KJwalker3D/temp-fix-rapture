@@ -3,7 +3,6 @@ import { getTriggerEvents, getActionEvents } from '@dcl/asset-packs/dist/events'
 import { TriggerType } from '@dcl/asset-packs'
 import { getPlayer } from "@dcl/sdk/players"
 import { LSCQUEST_EVENTS, LSCQuestAction, LSCQuestConnect, lscQuestEvent } from "lsc-questing-dcl"
-import { Quaternion, Vector3 } from "@dcl/sdk/math"
 
 //Final codes:
 
@@ -23,7 +22,7 @@ export const TASK_ID = "CBNbE" // Change to your Task ID
 
 
 export function LSCQuesting(){
-    LSCQuestConnect(engine, getPlayer, QUEST_ID)
+    LSCQuestConnect(QUEST_ID)
 
     const sceneEgg = engine.getEntityOrNullByName("myEgg") //change your scene entity name here
 	console.log("scene Egg is:", sceneEgg?.toString)
