@@ -230,8 +230,9 @@ export const artImage19 = 'https://bafkreidg2qqdwogai7nikcub5rjneodzb5rtt3jzfhbi
 export const artPos19 = Vector3.create(15.04, 14.81, 6.08)
 export const artRot19 = Vector3.create(0, 90, 0)
 export const artScale19 = Vector3.create(2.497, 2.497, 1)
-
+/*
 //themes and variations
+//change to Grant Yun Truckstop Diner
 export const artTitle20 = 'Themes and Variations #249'
 export const artDescription20 = 'by Vera Molnár, in collaboration with Martin Grasser.'
 export const artLink20 = 'https://opensea.io/assets/ethereum/0xe034bb2b1b9471e11cf1a0a9199a156fb227aa5d/249'
@@ -239,6 +240,17 @@ export const artImage20 = 'https://bafkreibm2exqjnsnkmz7t4q7dkpcwu2rztsrm7wvg47m
 export const artPos20 = Vector3.create(-15.108, 14.81, 6.08)
 export const artRot20 = Vector3.create(0, -90, 0)
 export const artScale20 = Vector3.create(2.472, 2.472, 1)
+*/
+
+//themes and variations
+//change to Grant Yun Truckstop Diner
+export const artTitle20 = 'Truckstop Diner'
+export const artDescription20 = 'by Grant Yun'
+export const artLink20 = 'https://superrare.com/artwork/eth/0xb932a70a57673d89f4acffbe830e8ed7f75fb9e0/33318'
+export const artImage20 = 'https://i.imgur.com/LBV321D.png'
+export const artPos20 = Vector3.create(-15.108, 14.81, 6.08)
+export const artRot20 = Vector3.create(0, -90, 0)
+export const artScale20 = Vector3.create(667 * 0.004, 889 * 0.004, 1)
 
 //raindrop serenade
 export const artTitle21 = 'Raindrop Serenade'
