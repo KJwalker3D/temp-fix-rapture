@@ -262,7 +262,7 @@ export const artScale21 = Vector3.create(2.076, 3.702, 1)
 export const artImage21 =  'https://bafybeid44ygruhatjtaxays4cwk37ycdzxcukfv6zxnnf32nbs6e4o3xbq.ipfs.nftstorage.link/'
 export const artVideo21 = 'https://player.vimeo.com/external/906404867.m3u8?s=3556567d58ffebd952aa5b33849adf00e5cd4c0e&logging=false'
 export const artTriggerPos21 = Vector3.create(-10, 14, 17)
-export const artTriggerScale21 = Vector3.create(10, 8, 10)
+export const artTriggerScale21 = Vector3.create(6, 8, 6)
 
 //deathless xcopy
 export const artTitle22 = 'DEATHLESS #14/20'

@@ -50,6 +50,26 @@
       }
     },
     {
+      "name": "inspector::Selection",
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "gizmo": {
+            "type": "integer",
+            "serializationType": "int32"
+          }
+        },
+        "serializationType": "map"
+      },
+      "data": {
+        "0": {
+          "json": {
+            "gizmo": 3
+          }
+        }
+      }
+    },
+    {
       "name": "inspector::SceneMetadata",
       "jsonSchema": {
         "type": "object",
@@ -335,12 +355,9 @@
             "thumbnail": "images/scene-thumbnail.png",
             "categories": [],
             "author": "VonMises by LowPolyModels",
+            "email": "",
             "tags": [],
             "layout": {
-              "base": {
-                "x": -88,
-                "y": -66
-              },
               "parcels": [
                 {
                   "x": -89,
@@ -374,8 +391,14 @@
                   "x": -89,
                   "y": -65
                 }
-              ]
+              ],
+              "base": {
+                "x": -88,
+                "y": -66
+              }
             },
+            "silenceVoiceChat": false,
+            "disablePortableExperiences": false,
             "spawnPoints": [
               {
                 "name": "spawn1",
