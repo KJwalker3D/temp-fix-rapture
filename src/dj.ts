@@ -3,7 +3,8 @@ import {
     engine,
     GltfContainer,
     Transform,
-    ColliderLayer
+    ColliderLayer,
+    MeshCollider
 } from '@dcl/sdk/ecs'
 import { Vector3, Quaternion } from '@dcl/sdk/math'
 
@@ -18,8 +19,9 @@ export function createDJ() {
 
     GltfContainer.createOrReplace(dj, {
         src: 'models/rapture-dj.glb',
-        visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS
     })
+    MeshCollider.create(dj)
+
     Transform.createOrReplace(dj, {
         position: Vector3.create(9.5, 37.22, 32),
         scale: Vector3.create(1.2, 1.2, 1.2),
@@ -27,18 +29,22 @@ export function createDJ() {
     })
     Animator.createOrReplace(dj, {
         states: [{
+            //name: "Complete",
             clip: "complete",
             playing: true,
             loop: true,
         }, {
-            clip: "dance.",
+           // name: "Dance",
+            clip: "dance",
             playing: false,
             loop: true,
         }, {
+           // name: "Idle",
             clip: "idle",
             playing: false,
             loop: true
         }, {
+           // name: "Splat",
             clip: "splat",
             playing: false,
             loop: true

@@ -1,11 +1,16 @@
 {
+  "extends": "@dcl/sdk/types/tsconfig.ecs7.json",
   "compilerOptions": {
     "allowJs": true,
-    "strict": true
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": ["ES2020", "DOM"], // Needed for Colyseus + URL/Headers types
+    "types": ["node"],         // Add Node types for URL, etc.
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx"
-  ],
-  "extends": "@dcl/sdk/types/tsconfig.ecs7.json"
+  ]
 }

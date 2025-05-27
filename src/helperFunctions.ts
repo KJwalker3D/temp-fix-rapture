@@ -1,7 +1,4 @@
-import { PBUiCanvasInformation, UiCanvasInformation, engine } from '@dcl/sdk/ecs'
-
 let setupUiInfoEngineAlready = false
-//Bence's scaling method
 export let tieredModalScale = 1
 export let tieredFontScale = 1
 export let tieredModalTextWrapScale = 2
@@ -14,10 +11,8 @@ export function setupEventDetailsUIScaling(inModalScale: number, inFontScale: nu
   tieredModalTextWrapScale = inModalTextWrapScale
 }
 
-export function updateUIScalingWithCanvasInfo(canvasInfo: PBUiCanvasInformation) {
+export function updateUIScalingWithCanvasInfo(canvasInfo: { width: number, height: number, devicePixelRatio: number }) {
   devicePixelRatioScale = 1920 / 1080 / canvasInfo.devicePixelRatio
-
-  console.log('updateUIScalingWithCanvasInfo', canvasInfo, 'devicePixelRatioScale', devicePixelRatioScale)
 
   const PIXEL_RATIO_THREADHOLD = 1.2
 
@@ -30,25 +25,14 @@ export function updateUIScalingWithCanvasInfo(canvasInfo: PBUiCanvasInformation)
     tieredFontScale = 1.1
     tieredModalTextWrapScale = 0.9
   }
-  console.log(
-    'updateUIScalingWithCanvasInfo',
-    canvasInfo,
-    'devicePixelRatioScale',
-    devicePixelRatioScale,
-    'tieredModalScale',
-    tieredModalScale,
-    'tieredFontScale',
-    tieredFontScale,
-    'tieredModalTextWrapScale',
-    tieredModalTextWrapScale
-  )
+
   const scale = canvasInfo.height / 1080
   setupEventDetailsUIScaling(scale, scale, scale)
 }
 
-export let canvasInfo: PBUiCanvasInformation = {
-  width: 0,
-  height: 0,
+export let canvasInfo = {
+  width: 1920,
+  height: 1080,
   devicePixelRatio: 1,
   interactableArea: undefined
 }
@@ -58,32 +42,14 @@ export function setupUiInfoEngine() {
 
   setupUiInfoEngineAlready = true
 
-  let maxWarningCount = 20
-  let warningCount = 0
-  engine.addSystem((deltaTime) => {
-    const uiCanvasInfo = UiCanvasInformation.getOrNull(engine.RootEntity)
+  // Use fixed values since UiCanvasInformation is not available
+  const scale = 1
+  canvasInfo.width = 1920
+  canvasInfo.height = 1080
+  canvasInfo.devicePixelRatio = 1
+  canvasInfo.interactableArea = undefined
 
-    if (!uiCanvasInfo) {
-      warningCount++
-      if (warningCount < maxWarningCount) {
-        console.log('setupUiInfoEngine', 'WARNING ', warningCount, 'screen data missing: ', uiCanvasInfo)
-      }
-      return
-    } else if (maxWarningCount > 0) {
-      maxWarningCount = 0
-      console.log('setupUiInfoEngine', 'FIXED ' + 'screen data resolved: ', uiCanvasInfo)
-    }
-
-    if (canvasInfo.width === uiCanvasInfo.width && canvasInfo.height === uiCanvasInfo.height) return
-
-    console.log('setupUiInfoEngine', 'Updated', 'Width', canvasInfo.width, 'Height:', canvasInfo.height)
-    canvasInfo.width = uiCanvasInfo.width
-    canvasInfo.height = uiCanvasInfo.height
-    canvasInfo.devicePixelRatio = uiCanvasInfo.devicePixelRatio
-    canvasInfo.interactableArea = uiCanvasInfo.interactableArea
-
-    updateUIScalingWithCanvasInfo(canvasInfo)
-  })
+  setupEventDetailsUIScaling(scale, scale, scale)
 }
 
 export function splitTextIntoLines(text: string, maxLenght: number, maxLines?: number) {
@@ -133,28 +99,20 @@ export function wordWrap(str: string, maxWidth: number, maxLines: number) {
     for (let j = 0; j < linesSeparate.length; j++) {
       res = ''
       done = false
-      //process each line for linebreaks
       while (linesSeparate[j].length > maxWidth) {
         let found = false
-        // Inserts new line at first whitespace of the line
         for (let i = maxWidth - 1; i >= 0; i--) {
           if (testWhite(linesSeparate[j].charAt(i))) {
             res = res + [linesSeparate[j].slice(0, i), newLineStr].join('')
-
-            //don't remove slash, but break line
             if (testSlash(linesSeparate[j].charAt(i))) {
               linesSeparate[j] = linesSeparate[j].slice(i)
-            }
-            // remove white space completely
-            else {
+            } else {
               linesSeparate[j] = linesSeparate[j].slice(i + 1)
             }
-
             found = true
             break
           }
         }
-        // Inserts new line at maxWidth position, the word is too long to wrap
         if (!found) {
           res += [linesSeparate[j].slice(0, maxWidth), newLineStr].join('')
           linesSeparate[j] = linesSeparate[j].slice(maxWidth)
@@ -237,7 +195,7 @@ export function breakLines(text: string, linelength: number) {
       }
     } else {
       returnText += line
-      break // We're breaking out of the the while(), not the for()
+      break
     }
   }
 

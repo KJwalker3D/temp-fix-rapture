@@ -1,13 +1,6 @@
-
-
-import { engine, UiCanvasInformation } from '@dcl/sdk/ecs'
-import { Color4 } from '@dcl/sdk/math'
-import ReactEcs, { Label, ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
-//import { createBaseAudio, playCurrentSong, playlist, playlistOn, removeBaseAudio, shufflePlaylist, stopCurrentSong } from './playlist'
-import { breakLines, canvasInfo, setupUiInfoEngine, tieredFontScale, tieredModalTextWrapScale, wordWrap } from './helperFunctions'
+import ReactEcs, { UiEntity } from '@dcl/sdk/react-ecs'
+import { canvasInfo } from './helperFunctions'
 import { toggleStream } from './playlist'
-import { ArtworkData, artworkData } from './Art/artData'
-import { currentArtworkId, findArtworkById, hoverVisible, toggleHover } from './Art/artHover'
 
 
 let playlistOn = true

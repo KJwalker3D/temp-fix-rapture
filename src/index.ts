@@ -17,7 +17,6 @@ export function main() {
   createFrontScreens()
   const elevatorButtons = ElevatorModule.initializeElevatorButtons();
   const callButtons = ElevatorModule.initializeElevatorCallButtons();
-
   createAllLazyAreas()
   createArtHovers()
   engine.addSystem(artHoverSystem)

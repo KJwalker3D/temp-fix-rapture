@@ -1,6 +1,6 @@
-import { Entity } from "@dcl/sdk/ecs";
 import { Vector3 } from "@dcl/sdk/math";
 import { sceneParent } from "../components";
+import { Entity } from "@dcl/sdk/ecs";
 
 
 
@@ -75,7 +75,7 @@ export const artImage3 = 'images/eternalPump-min.jpg'
 export const artPos3 = Vector3.create(13.25, 5.59, 13.492)
 export const artRot3 = Vector3.create(0, 90, 0)
 export const artScale3 = Vector3.create(3.444, 3.444, 1)
-export const artVideo3 = 'https://player.vimeo.com/external/991563581.m3u8?s=9a1cecfa697c539179d185708e1afb8ed08d7205&logging=false'
+export const artVideo3 = 'https://dclstreams.com/media/videos/play/3a1ee19a-356a-428e-8ff1-a4e9cefc516d.m3u8'
 export const artTriggerPos3 = Vector3.create(10.25, 5.59, 13.492)
 export const artTriggerScale3 = Vector3.create(10, 10, 10)
 
@@ -98,7 +98,7 @@ export const artPos5 = Vector3.create(-15.04, 5.47, 5.39)
 export const artRot5 = Vector3.create(0, 90, 0)
 export const artScale5 = Vector3.create(3.311, 3.211, 1)
 export const artImage5 =  'https://bafkreidkpypw5zud2gkvxn3d6c6h4kpcyww3ayu2c2indqimg5pnbbeiou.ipfs.nftstorage.link/'
-export const artVideo5 = 'https://player.vimeo.com/external/899812537.m3u8?s=46de3f0dd90f78c5b8d59b151a2226ab598f5c1a&logging=false'
+export const artVideo5 = 'https://dclstreams.com/media/videos/play/68b006a2-4e79-46e8-b4c8-a945aaa9bec7.m3u8'
 export const artTriggerPos5 = Vector3.create(-11, 3, 8)
 export const artTriggerScale5 = Vector3.create(10, 10, 10)
 
@@ -179,7 +179,7 @@ export const artPos14 = Vector3.create(12.28, 14.81, 34.7)
 export const artRot14 = Vector3.create(0, 90, 0)
 export const artScale14 = Vector3.create(2.564, 2.564, 1)
 export const artImage14 =  'https://bafybeidayrxbohl7ifibl5zhoxyoulmsbbvvj5kjlk7qmnsja3up7wxb7y.ipfs.nftstorage.link/'
-export const artVideo14 = 'https://player.vimeo.com/external/901457851.m3u8?s=b3ad9384fd6b2c81af48eafc216d366866fbc890&logging=false'
+export const artVideo14 = 'https://dclstreams.com/media/videos/play/8e824713-21e4-4294-b445-99f33b54b3c6.m3u8'
 export const artTriggerPos14 = Vector3.create(10.883, 14.82, 36)
 export const artTriggerScale14 = Vector3.create(10, 7, 10)
 
@@ -191,7 +191,7 @@ export const artPos15 = Vector3.create(12.28, 14.81, 29.47)
 export const artRot15 = Vector3.create(0, 90, 0)
 export const artScale15 = Vector3.create(2.059, 2.573, 1)
 export const artImage15 =  'https://bafybeicnz74ucjvgcapeawsatz42k36n6b7qt7xseruscqiegxjuyjwen4.ipfs.nftstorage.link/'
-export const artVideo15 = 'https://player.vimeo.com/external/902194772.m3u8?s=86879cb2b063198e1ea847ed1c854554043864e9&logging=false'
+export const artVideo15 = 'https://dclstreams.com/media/videos/play/af0ac9c0-ee83-4892-866e-2dd4484718aa.m3u8'
 export const artTriggerPos15 = Vector3.create(10, 14, 28)
 export const artTriggerScale15 = Vector3.create(10, 8, 6)
 
@@ -247,7 +247,7 @@ export const artScale20 = Vector3.create(2.472, 2.472, 1)
 export const artTitle20 = 'Truckstop Diner'
 export const artDescription20 = 'by Grant Yun'
 export const artLink20 = 'https://superrare.com/artwork/eth/0xb932a70a57673d89f4acffbe830e8ed7f75fb9e0/33318'
-export const artImage20 = 'https://i.imgur.com/LBV321D.png'
+export const artImage20 = 'https://dclstreams.com/media/images/5301262f-5920-44b8-8d0e-1e0f11416874.png'
 export const artPos20 = Vector3.create(-15.108, 14.81, 6.08)
 export const artRot20 = Vector3.create(0, -90, 0)
 export const artScale20 = Vector3.create(667 * 0.004, 889 * 0.004, 1)
@@ -260,7 +260,7 @@ export const artPos21 = Vector3.create(-14.88, 14.37, 20.03)
 export const artRot21 = Vector3.create(0, -90, 0)
 export const artScale21 = Vector3.create(2.076, 3.702, 1)
 export const artImage21 =  'https://bafybeid44ygruhatjtaxays4cwk37ycdzxcukfv6zxnnf32nbs6e4o3xbq.ipfs.nftstorage.link/'
-export const artVideo21 = 'https://player.vimeo.com/external/906404867.m3u8?s=3556567d58ffebd952aa5b33849adf00e5cd4c0e&logging=false'
+export const artVideo21 = 'https://dclstreams.com/media/videos/play/2081e1dc-1962-4e7c-9aae-88c7524df87d.m3u8'
 export const artTriggerPos21 = Vector3.create(-10, 14, 17)
 export const artTriggerScale21 = Vector3.create(6, 8, 6)
 
@@ -272,7 +272,7 @@ export const artPos22 = Vector3.create(-14.86, 14.812, 27)
 export const artRot22 = Vector3.create(0, -90, 0)
 export const artScale22 = Vector3.create(4.533, 2.56, 1)
 export const artImage22 =  'https://bafkreid22x255wiymvr5dtttflfn3f2l4ahzc4o66ohxqu7wcdlensdg4m.ipfs.nftstorage.link/'
-export const artVideo22 = 'https://player.vimeo.com/external/914895762.m3u8?s=756dc8a4da5c00c4e780f78f98ab2f23a82408d6&logging=false'
+export const artVideo22 = 'https://dclstreams.com/media/videos/play/0bcd1cda-229c-40d1-a862-ed4f3dd8e732.m3u8'
 export const artTriggerPos22 = Vector3.create(-10.883, 14.82, 26.974)
 export const artTriggerScale22 = Vector3.create(10, 7, 10)
 
@@ -284,7 +284,7 @@ export const artPos23 = Vector3.create(-14.86, 14.81, 37.29)
 export const artRot23 = Vector3.create(0, 90, 0)
 export const artScale23 = Vector3.create(4.634, 2.614, 10)
 export const artImage23 =  'https://bafkreierjlkqq5uc5ahutskz3brwm7b666yeglfvvyf3qt5v55cpcrbvri.ipfs.nftstorage.link/'
-export const artVideo23 = 'https://player.vimeo.com/external/914893974.m3u8?s=4df6d60f17ed9dfdbdb2fa4e3ff570eaa8a64da2&logging=false'
+export const artVideo23 = 'https://dclstreams.com/media/videos/play/b73cd797-48a7-4362-af3f-d547c7ee7219.m3u8'
 export const artTriggerPos23 = Vector3.create(-10.88, 14.81, 36.9)
 export const artTriggerScale23 = Vector3.create(10, 7, 10)
 
@@ -296,7 +296,7 @@ export const artPos24 = Vector3.create(-15.1, 14.81, 59.07)
 export const artRot24 = Vector3.create(0, 90, 0)
 export const artScale24 = Vector3.create(2.503, 2.503, 1)
 export const artImage24 =  'https://bafkreihot5p3hzsoringx2x35epnqd2f5dtxbbo6frporx6fgplzllo4ey.ipfs.nftstorage.link/'
-export const artVideo24 = 'https://player.vimeo.com/external/903098211.m3u8?s=d3a2733336b1720e90aec4353dfa188b0bc74aa3&logging=false'
+export const artVideo24 = 'https://dclstreams.com/media/videos/play/fee5e0ba-52d8-46cd-b965-d7c4dca0ac94.m3u8'
 export const artTriggerPos24 = Vector3.create(-10, 14, 57)
 export const artTriggerScale24 = Vector3.create(10, 8, 10)
 
@@ -309,7 +309,7 @@ export const artPos25 = Vector3.create(13.17, 26.66, 24.46)
 export const artRot25 = Vector3.create(0, 90, 0)
 export const artScale25 = Vector3.create(4.287 * 1.2, 7.248 * 1.2, 1)
 export const artImage25 =  'https://bafybeicejvo4vxxn7m52ojarwks53cpitebxsizo7oyvkyolvtgiylimz4.ipfs.nftstorage.link/'
-export const artVideo25 = 'https://player.vimeo.com/external/899450828.m3u8?s=b822be586ea2bffa520b6d277ed4e716d4131143&logging=false'
+export const artVideo25 = 'https://dclstreams.com/media/videos/play/3be2cdd7-0785-41c6-8a90-2cc45aac3490.m3u8'
 export const artTriggerPos25 = Vector3.create(10, 24, 24)
 export const artTriggerScale25 = Vector3.create(10, 10, 6)
 
@@ -321,7 +321,7 @@ export const artPos26 =  Vector3.create(13.17, 26.4, 6.27)
 export const artRot26 = Vector3.create(0, 90, 0)
 export const artScale26 = Vector3.create(5.283 * 1.1, 7.925 * 1.1, 1)
 export const artImage26 =  'https://bafkreibg7vzkmghujvwhqsoctvyaptqlike6swl4hr2yxesiriyw4rqrp4.ipfs.nftstorage.link/'
-export const artVideo26 = 'https://player.vimeo.com/external/925197159.m3u8?s=ead4bda81c27df0253a1f2d26b7fe2b1a053e5ac&logging=false'
+export const artVideo26 = 'https://dclstreams.com/media/videos/play/236c4ae8-9719-4511-8d11-b2d0e9cc42c7.m3u8'
 export const artTriggerPos26 = Vector3.create(10, 24, 8)
 export const artTriggerScale26 = Vector3.create(10, 10, 8)
 
@@ -333,7 +333,7 @@ export const artPos27 =  Vector3.create(-15.1, 24.015, 5.15)
 export const artRot27 = Vector3.create(0, 90, 0)
 export const artScale27 = Vector3.create(4.268, 4.268, 1)
 export const artImage27 =  'https://bafybeiapdczsddhdw6adwan6japfxtzw6qjxrv5xg2t6eb4zxabclyoi3u.ipfs.nftstorage.link/'
-export const artVideo27 = 'https://player.vimeo.com/external/899451087.m3u8?s=10777d569e61ff669a97c2885666ee60190701c0&logging=false'
+export const artVideo27 = 'https://dclstreams.com/media/videos/play/74123965-9762-459d-913b-b60072065b67.m3u8'
 export const artTriggerPos27 = Vector3.create(artPos27.x + 5, artPos27.y, artPos27.z)
 export const artTriggerScale27 = Vector3.create(10, 8, 10)
 
@@ -382,7 +382,7 @@ export const artPos32 = Vector3.create(14, 23.362, 39.69)
 export const artRot32 = Vector3.create(0, 90, 0)
 export const artScale32 = Vector3.create(2.048*.85, 3.652*.85, 1)
 export const artImage32 =  'https://bafkreibooxxya7xnx3ofzvwrsnmo7ciubobrc3uvjuqqxrxnac7gblmpru.ipfs.nftstorage.link/'
-export const artVideo32 = 'https://player.vimeo.com/external/925938362.m3u8?s=ed72e17da69de103006f9675fdd1700e48d95348&logging=false'
+export const artVideo32 = 'https://dclstreams.com/media/videos/play/0df22cb3-00f6-4e13-b71a-8e739fa7d5fe.m3u8'
 export const artTriggerPos32 = Vector3.create(artPos32.x-8, artPos32.y, artPos32.z + 1)
 export const artTriggerScale32 = Vector3.create(10, 8, 10)
 
@@ -400,7 +400,7 @@ export const artTitle34 = 'Punk #3060'
 export const artDescription34 = ''
 export const artLink34 = 'https://cryptopunks.app/cryptopunks/details/3060'
 export const artImage34 = 'https://bafkreiclxuga2tygjgjnreta3ze2em34ba3sfmbhokkzo2i4nzidlhflqm.ipfs.nftstorage.link/'
-export const artPos34 = Vector3.create(-15.16, 23.727, 48.13)
+export const artPos34 = Vector3.create(-15.16, 23.729, 48.13)
 export const artRot34 = Vector3.create(0, -90, 0)
 export const artScale34 = Vector3.create(2.15, 2.15, 1)
 
@@ -430,7 +430,7 @@ export const artPos37 = Vector3.create(14, 23.371, 48.22)
 export const artRot37 = Vector3.create(0, 90, 0)
 export const artScale37 = Vector3.create(3.275*1.5, 1.9*1.5, 1)
 export const artImage37 =  'https://bafkreihekf6oziwmwe62e3q3wegzra4aelz4qdylm44iorlf2to6uhygdq.ipfs.nftstorage.link/'
-export const artVideo37 = 'https://player.vimeo.com/external/899024473.m3u8?s=fe35bd61192902d4994620b5ceb6ee0a30ddafbd&logging=false'
+export const artVideo37 = 'https://dclstreams.com/media/videos/play/9637d9e4-7b0d-4a63-be31-f171a279a7d8.m3u8'
 export const artTriggerPos37 = Vector3.create(artPos37.x-8, artPos37.y, artPos37.z + 1)
 export const artTriggerScale37 = Vector3.create(16, 8, 16)
 
@@ -453,8 +453,8 @@ export const artLink38 = 'https://www.cryptocubes.io/collection/32'
 
 //// ROOFTOP SCREENS
 
-export const rooftopVideo = 'https://player.vimeo.com/external/905949518.m3u8?s=6c752565cae32acc3b1699149645a354daf67212&logging=false'
-export const rooftopUrl = ''
+export const rooftopVideo = 'https://dclstreams.com/media/videos/play/fe23634c-947d-40f9-8672-02c0a3d7fcf2.m3u8'
+export const rooftopUrl = 'https://www.beeple-crap.com/'
 export const rooftopImage = 'https://bafkreihhz6dnyeuxlpok5ne5tdugg7bzc4yme6ojsbmjwojcruz4hufclm.ipfs.nftstorage.link/'
 
 const rooftopPosX = 0.5

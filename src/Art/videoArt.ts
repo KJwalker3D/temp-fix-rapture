@@ -284,25 +284,21 @@ export async function createVideoArt(
   website: string,
   triggerScale: Vector3,
   triggerPosition: Vector3,
-  audio: boolean,
+  audio: boolean
 ) {
+  const entity = engine.addEntity()
+  MeshRenderer.setPlane(entity)
+  MeshCollider.setPlane(entity)
 
-  const entity = engine.addEntity();
-  MeshRenderer.setPlane(entity);
-  MeshCollider.setPlane(entity);
-
-  let isImage = true;
+  let isImage = true
 
   Transform.createOrReplace(entity, {
-    position: position,
+    position,
     rotation: Quaternion.fromEulerDegrees(rotation.x, rotation.y, rotation.z),
-    scale: scale,
+    scale
+  })
 
-  });
-
-
-
-  const imageMaterial = Material.Texture.Common({ src: image });
+  const imageMaterial = Material.Texture.Common({ src: image })
   Material.setPbrMaterial(entity, {
     texture: imageMaterial,
     roughness: 1,
@@ -310,50 +306,43 @@ export async function createVideoArt(
     metallic: 0,
     emissiveColor: Color3.White(),
     emissiveIntensity: 1,
-    emissiveTexture: imageMaterial,
-  });
+    emissiveTexture: imageMaterial
+  })
 
-  
-   VideoPlayer.create(entity, {
-      src: video,
-      playing: false,
-      loop: true,
-    });
-
+  VideoPlayer.create(entity, {
+    src: video,
+    playing: false,
+    loop: true
+  })
 
   pointerEventsSystem.onPointerDown(
-    {
-      entity: entity,
-      opts: {
-        button: InputAction.IA_POINTER,
-        hoverText: hoverText,
-      },
+    entity,
+    () => {
+      const vidPlayer = VideoPlayer.getMutable(entity)
+      if (vidPlayer) {
+        vidPlayer.playing = !vidPlayer.playing
+      }
+      openExternalUrl({ url: website })
     },
-    function () {
-      console.log('clicked artwork');
-      VideoPlayer.getMutableOrNull(entity)
-      
-      VideoPlayer.getMutable(entity).playing = !VideoPlayer.getMutable(entity).playing
-      openExternalUrl({
-        url: website,
-      });
+    {
+      button: InputAction.IA_POINTER,
+      hoverText,
+      maxDistance: 16
     }
-  );
-
-
-
+  )
 
   const artTrigger = utils.addTestCube(
     {
       position: triggerPosition,
-      scale: triggerScale,
+      scale: triggerScale
     },
     undefined,
     undefined,
     Color4.create(1, 1, 1, 0),
     undefined,
     true
-  );
+  )
+
   utils.triggers.addTrigger(
     artTrigger,
     utils.NO_LAYERS,
@@ -361,71 +350,54 @@ export async function createVideoArt(
     [
       {
         type: 'box',
-        scale: triggerScale,
-      },
+        scale: triggerScale
+      }
     ],
-    function (otherEntity) {
-      if (otherEntity) {
-        // Toggle between image and video
-        const videoTexture = Material.Texture.Video({ videoPlayerEntity: entity });
-        if (isImage) {
-          VideoPlayer.createOrReplace(entity, {
-            src: video,
-            playing: true,
-            loop: true,
-          });
-          Material.deleteFrom(entity);
-          Material.setPbrMaterial(entity, {
-            texture: videoTexture,
-            roughness: 1,
-            specularIntensity: 0,
-            metallic: 0,
-            emissiveColor: Color3.White(),
-            emissiveIntensity: 1,
-            emissiveTexture: videoTexture,
-          });
-         
-          isImage = false;
-          if (audio) {
-            stopStream(); // Toggle audio play state
-          }
-        }
+    () => {
+      if (isImage) {
+        const videoTexture = Material.Texture.Video({ videoPlayerEntity: entity })
+        VideoPlayer.createOrReplace(entity, {
+          src: video,
+          playing: true,
+          loop: true
+        })
+        Material.deleteFrom(entity)
+        Material.setPbrMaterial(entity, {
+          texture: videoTexture,
+          roughness: 1,
+          specularIntensity: 0,
+          metallic: 0,
+          emissiveColor: Color3.White(),
+          emissiveIntensity: 1,
+          emissiveTexture: videoTexture
+        })
+
+        isImage = false
+        if (audio) stopStream()
       }
     },
-    function (onExit) {
-      if (onExit) {
-        if (!isImage) {
-          Material.deleteFrom(entity);
-          VideoPlayer.deleteFrom(entity);
-          let mat = Material.Texture.Common({
-            src: image,
-          });
-          Material.setPbrMaterial(entity, {
-            texture: Material.Texture.Common({
-              src: image,
-            }),
-            roughness: 1,
-            specularIntensity: 0,
-            metallic: 0,
-            emissiveColor: Color3.White(),
-            emissiveIntensity: 1,
-            emissiveTexture: mat,
-          });
-          isImage = true;
-          if (audio === true) {
-            createStream(); // Toggle audio play state
-          }
-        }
+    () => {
+      if (!isImage) {
+        VideoPlayer.deleteFrom(entity)
+        Material.deleteFrom(entity)
+        const mat = Material.Texture.Common({ src: image })
+        Material.setPbrMaterial(entity, {
+          texture: mat,
+          roughness: 1,
+          specularIntensity: 0,
+          metallic: 0,
+          emissiveColor: Color3.White(),
+          emissiveIntensity: 1,
+          emissiveTexture: mat
+        })
+
+        isImage = true
+        if (audio) createStream()
       }
-      //utils.triggers.enableDebugDraw(true)
     }
+  )
 
-  );
-
-
-
-  return entity;
-
+  return entity
 }
 
 export function removeVideos(entity: Entity) {

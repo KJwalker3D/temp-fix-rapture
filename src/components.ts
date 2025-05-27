@@ -1,326 +1,255 @@
-import { ColliderLayer, GltfContainer, InputAction, Material, MeshCollider, MeshRenderer, Schemas, TextureWrapMode, Transform, VideoPlayer, VideoState, engine, pointerEventsSystem, videoEventsSystem } from '@dcl/sdk/ecs'
+import {
+  ColliderLayer,
+  GltfContainer,
+  InputAction,
+  Material,
+  MeshCollider,
+  MeshRenderer,
+  Schemas,
+  TextureWrapMode,
+  Transform,
+  VideoPlayer,
+  engine,
+  pointerEventsSystem,
+  Entity,
+  PointerEvents,
+  PointerEventType
+} from '@dcl/sdk/ecs'
 import { Vector3, Quaternion, Color4 } from '@dcl/sdk/math'
 
-
-// We use this component to track and group all spinning entities.
-// engine.getEntitiesWith(Spinner)
+// Components
 export const ArtHover = engine.defineComponent('artHover', { visible: Schemas.Boolean })
-
-export const VonsArt = engine.defineComponent('vonsart', { visible: Schemas.Boolean})
-
-// We use this component to track and group all the cubes.
-// engine.getEntitiesWith(Cube)
+export const VonsArt = engine.defineComponent('vonsart', { visible: Schemas.Boolean })
 export const Cube = engine.defineComponent('cube-id', {
-    artTitle: Schemas.String,
-    artDescription: Schemas.String
+  artTitle: Schemas.String,
+  artDescription: Schemas.String
 })
 
+// Create Building
 export function createBuilding() {
+  const building = engine.addEntity()
+  Transform.create(building, {
+    position: Vector3.create(-16, 0, 0),
+    rotation: Quaternion.fromEulerDegrees(0, 180, 0)
+  })
 
-    const building = engine.addEntity()
-    Transform.create(building, {
-      position: Vector3.create(-16, 0, 0),
-      rotation: Quaternion.fromEulerDegrees(0, 180, 0),
-    })
-    GltfContainer.create(building, {
-      src: 'models/rapture-new4.glb',
-      invisibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS || ColliderLayer.CL_POINTER
-    })
-  
+  GltfContainer.create(building, {
+    src: 'models/rapture-new4.glb'
+  })
+
+  MeshCollider.create(building, {
+    collisionMask: ColliderLayer.CL_PHYSICS | ColliderLayer.CL_POINTER
+  })
 }
 
+// Base Scene Entity
 export const sceneParent = engine.addEntity()
 Transform.create(sceneParent, {
-position: Vector3.create(-13, 38.75, 32),
-scale: Vector3.create(1.5, 1.5, 1.5),
-rotation: Quaternion.fromEulerDegrees(0, 90, 0)
+  position: Vector3.create(-13, 38.75, 32),
+  scale: Vector3.create(1.5, 1.5, 1.5),
+  rotation: Quaternion.fromEulerDegrees(0, 90, 0)
 })
 
-export const aspectRatio = 9 / 16; 
-
-const mosaic = engine.addEntity();
-const sideScreenLeft = engine.addEntity();
-const sideScreenRight = engine.addEntity();
-
+export const aspectRatio = 9 / 16
 export const videoSource = 'https://player.vimeo.com/external/905949518.m3u8?s=6c752565cae32acc3b1699149645a354daf67212&logging=false'
 
+const mosaic = engine.addEntity()
+const sideScreenLeft = engine.addEntity()
+const sideScreenRight = engine.addEntity()
 
-let roofScreensVisible = false;
-let roofScreensInstanced = false;
+let roofScreensVisible = false
+let roofScreensInstanced = false
 
+// Video texture
+const videoTexture = Material.Texture.Video({
+  videoPlayerEntity: mosaic,
+  wrapMode: TextureWrapMode.TWM_REPEAT
+})
 
+// Switch to video material
+export function switchScreenMaterial() {
+  Material.setPbrMaterial(mosaic, {
+    texture: videoTexture,
+    roughness: 1,
+    specularIntensity: 0,
+    metallic: 0,
+    emissiveTexture: videoTexture,
+    emissiveColor: Color4.White(),
+    emissiveIntensity: 5
+  })
 
+  VideoPlayer.createOrReplace(mosaic, {
+    src: videoSource,
+    playing: true,
+    volume: 1,
+    loop: false
+  })
+}
+
+// Toggle roof screens
 export function toggleRoofScreens() {
   if (!roofScreensInstanced) {
     createRoofScreens()
     roofScreensVisible = true
-  }
-  else if (roofScreensInstanced && roofScreensVisible) {
-   // turnOffRoofScreens();
+  } else if (roofScreensInstanced && roofScreensVisible) {
+    // turnOffRoofScreens()
     roofScreensVisible = false
   } else if (roofScreensInstanced && !roofScreensVisible) {
-   // turnOnRoofScreens();
+    // turnOnRoofScreens()
     roofScreensVisible = true
   }
-  }
+}
 
+// Create rooftop screens
+export function createRoofScreens() {
+  roofScreensInstanced = true
 
-const videoTexture = Material.Texture.Video({
-  videoPlayerEntity: mosaic, 
-  wrapMode: TextureWrapMode.TWM_REPEAT,
-  });
-  
-  
-  videoEventsSystem.registerVideoEventsEntity(mosaic, function (
-  videoEvent
-  ) {
-  console.log(
-    'video event - state: ' +
-    videoEvent.state +
-    '\ncurrent offset:' + 
-    videoEvent.currentOffset +
-    '\nvideo length:' +
-    videoEvent.videoLength
-  );
-  
-  switch (videoEvent.state) {
-    case VideoState.VS_READY:
-      console.log('Video is ready');
-     // checkAndStartShow();
-      break
-    case VideoState.VS_NONE:
-      console.log('Video is in no state');
-      break
-    case VideoState.VS_ERROR:
-      console.log('Video error');
-      break
-    case VideoState.VS_SEEKING:
-      console.log('Video is seeking');
-      break
-    case VideoState.VS_LOADING:
-      console.log('Video is loading');
-      break
-    case VideoState.VS_BUFFERING:
-      console.log('Video is buffering');
-      break
-    case VideoState.VS_PLAYING:
-      console.log('Video is playing');
-      break
-    case VideoState.VS_PAUSED:
-      console.log('Video is paused')
-  }
-  });
-  
-  export function switchScreenMaterial() {
-    const videoTexture = Material.Texture.Video({
-      videoPlayerEntity: mosaic, 
-      wrapMode: TextureWrapMode.TWM_REPEAT,
-    });
-    Material.setPbrMaterial(mosaic, {
-      texture: videoTexture,
-      roughness: 1, 
-      specularIntensity: 0,
-      metallic: 0,
-      emissiveTexture: videoTexture,
-      emissiveColor: Color4.White(),
-      emissiveIntensity: 5,
-    
-    });
-    VideoPlayer.createOrReplace(mosaic, {
-      src: videoSource,
-      playing: true,
-      volume: 1,
-      loop: false //remove thisa
-      
-    })
-    };
-    
-    //create rooftop screens
-    export function createRoofScreens() {
-    VideoPlayer.createOrReplace(mosaic, {
-      src: videoSource,
-      playing: true,
-      volume: 1,
-      loop: true //remove thisa
-    })
-    
-    
-    
-    Material.setPbrMaterial(mosaic, {
-      texture: videoTexture,
-      roughness: 1, 
-      specularIntensity: 0,
-      metallic: 0,
-      //alphaTest: 0,
-      //alphaTexture: videoTexture,
-      emissiveTexture: videoTexture,
-      emissiveColor: Color4.White(),
-      emissiveIntensity: 1,
-    })
-    
-    Transform.createOrReplace(mosaic, {
+  // Mosaic setup
+  VideoPlayer.createOrReplace(mosaic, {
+    src: videoSource,
+    playing: true,
+    volume: 1,
+    loop: true
+  })
+
+  Material.setPbrMaterial(mosaic, {
+    texture: videoTexture,
+    roughness: 1,
+    specularIntensity: 0,
+    metallic: 0,
+    emissiveTexture: videoTexture,
+    emissiveColor: Color4.White(),
+    emissiveIntensity: 1
+  })
+
+  Transform.createOrReplace(mosaic, {
     position: Vector3.Zero(),
     scale: Vector3.create(9, 5, 3),
     rotation: Quaternion.fromEulerDegrees(0, 180, 0),
     parent: sceneParent
-    });
-    
-    MeshRenderer.setPlane(mosaic);
-    MeshCollider.setPlane(mosaic);
-    
-    pointerEventsSystem.onPointerDown(
+  })
+
+  MeshRenderer.setPlane(mosaic)
+  MeshCollider.create(mosaic, {
+    collisionMask: ColliderLayer.CL_POINTER | ColliderLayer.CL_PHYSICS
+  })
+
+// Enable pointer interaction on the entity
+PointerEvents.create(mosaic, {
+  pointerEvents: [
     {
-      entity: mosaic,
-      opts: {
+      eventType: PointerEventType.PET_DOWN,
+      eventInfo: {
         button: InputAction.IA_POINTER,
-        hoverText: "Play/Pause"
+        hoverText: 'Play/Pause',
+        maxDistance: 10
       }
-    },
-    function () {
-      VideoPlayer.getMutable(mosaic)
-      VideoPlayer.getMutable(mosaic).playing = !VideoPlayer.getMutable(mosaic).playing
     }
-    )
-    
-    
-    //side screen left
-    VideoPlayer.createOrReplace(sideScreenLeft, {
+  ]
+})
+
+// Register the callback
+pointerEventsSystem.onPointerDown(mosaic, () => {
+  const mutable = VideoPlayer.getMutable(mosaic)
+  mutable.playing = !mutable.playing
+})
+
+  // Side screen left
+  createScreen(sideScreenLeft, Vector3.create(6.9, 0.7, -1.6), Vector3.create(5, 3, 3), Quaternion.fromEulerDegrees(0, 180, -90))
+
+  // Side screen right
+  createScreen(sideScreenRight, Vector3.create(-6.9, 0.7, -1.6), Vector3.create(5, 3, 5), Quaternion.fromEulerDegrees(0, 180, 90))
+}
+
+function createScreen(entity: Entity, pos: Vector3, scale: Vector3, rot: Quaternion) {
+  VideoPlayer.createOrReplace(entity, {
     src: videoSource,
     playing: true,
     volume: 1,
-    loop: true //remove thisa
-    })
-    
-    
-    Material.setPbrMaterial(sideScreenLeft, {
+    loop: true
+  })
+
+  Material.setPbrMaterial(entity, {
     texture: videoTexture,
-    roughness: 1, 
+    roughness: 1,
     specularIntensity: 0,
     metallic: 0,
-    //alphaTest: 0,
-    //alphaTexture: videoTexture,
     emissiveTexture: videoTexture,
     emissiveColor: Color4.White(),
-    emissiveIntensity: 1,
-    })
-    
-    Transform.createOrReplace(sideScreenLeft, {
-    position: Vector3.create(6.9, 0.7, -1.6),
-    scale: Vector3.create(5, 3, 3),
-    rotation: Quaternion.fromEulerDegrees(0, 180, -90),
+    emissiveIntensity: 1
+  })
+
+  Transform.createOrReplace(entity, {
+    position: pos,
+    scale: scale,
+    rotation: rot,
     parent: sceneParent
-    });
-    
-    MeshRenderer.setPlane(sideScreenLeft);
-    MeshCollider.setPlane(sideScreenLeft);
-    
-    pointerEventsSystem.onPointerDown(
+  })
+
+  MeshRenderer.setPlane(entity)
+  MeshCollider.create(entity, {
+    collisionMask: ColliderLayer.CL_POINTER | ColliderLayer.CL_PHYSICS
+  })
+
+// Enable pointer interaction on the entity
+PointerEvents.create(entity, {
+  pointerEvents: [
     {
-    entity: sideScreenLeft,
-    opts: {
-      button: InputAction.IA_POINTER,
-      hoverText: "Play/Pause"
+      eventType: PointerEventType.PET_DOWN,
+      eventInfo: {
+        button: InputAction.IA_POINTER,
+        hoverText: 'Play/Pause',
+        maxDistance: 10
+      }
     }
-    },
-    function () {
-    VideoPlayer.getMutable(sideScreenLeft)
-    VideoPlayer.getMutable(sideScreenLeft).playing = !VideoPlayer.getMutable(sideScreenLeft).playing
-    }
-    )
-    
-    
-    // side screen right
-    VideoPlayer.createOrReplace(sideScreenRight, {
+  ]
+})
+
+// Register the callback
+pointerEventsSystem.onPointerDown(entity, () => {
+  const mutable = VideoPlayer.getMutable(entity)
+  mutable.playing = !mutable.playing
+})
+}
+
+// Turn off screens
+export function turnOffRoofScreens() {
+  VideoPlayer.deleteFrom(mosaic)
+  // Optionally delete side screens too
+  // VideoPlayer.deleteFrom(sideScreenLeft)
+  // VideoPlayer.deleteFrom(sideScreenRight)
+}
+
+// Turn on screens again
+export function turnOnRoofScreens() {
+  VideoPlayer.createOrReplace(mosaic, {
     src: videoSource,
     playing: true,
     volume: 1,
-    loop: true //remove thisa
-    })
-    
-    
-    Material.setPbrMaterial(sideScreenRight, {
-    texture: videoTexture,
-    roughness: 1, 
-    specularIntensity: 0,
-    metallic: 0,
-    //alphaTest: 0,
-    //alphaTexture: videoTexture,
-    emissiveTexture: videoTexture,
-    emissiveColor: Color4.White(),
-    emissiveIntensity: 1,
-    })
-    
-    Transform.createOrReplace(sideScreenRight, {
-    position: Vector3.create(-6.9, 0.7, -1.6),
-    scale: Vector3.create(5, 3, 5),
-    rotation: Quaternion.fromEulerDegrees(0, 180, 90),
-    parent: sceneParent
-    });
-    
-    MeshRenderer.setPlane(sideScreenRight);
-    MeshCollider.setPlane(sideScreenRight);
-    
-    pointerEventsSystem.onPointerDown(
-    {
-    entity: sideScreenRight,
-    opts: {
-      button: InputAction.IA_POINTER,
-      hoverText: "Play/Pause"
-    }
-    },
-    function () {
-    VideoPlayer.getMutable(sideScreenRight)
-    VideoPlayer.getMutable(sideScreenRight).playing = !VideoPlayer.getMutable(sideScreenRight).playing
-    }
-    )
-    
-    }
-    
-    export function turnOffRoofScreens() {
-    VideoPlayer.deleteFrom(mosaic
-    );
-    //VideoPlayer.deleteFrom(sideScreenLeft);
-    //VideoPlayer.deleteFrom(sideScreenRight);
-    }
-    
-    export function turnOnRoofScreens() {
-    VideoPlayer.createOrReplace(mosaic, {
-      src: videoSource,
-      playing: true,
-      volume: 1,
-      loop: true //remove thisa
-    });
-    
-    VideoPlayer.createOrReplace(sideScreenLeft, {
-      src: videoSource,
-      playing: true,
-      volume: 1,
-      loop: true 
-    });
-    VideoPlayer.createOrReplace(sideScreenRight, {
-      src: videoSource,
-      playing: true,
-      volume: 1,
-      loop: true 
-    });
-    
-    }
-    
- 
-    
-    
-    
-    
-    
-    
-    
-    // Format time in HH:MM:SS format
-    export function formatTime(seconds: number) {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-    }
-    
-    // Update the countdown text every second
-    //utils.timers.setInterval(updateCountdownText, 1000);
+    loop: true
+  })
+
+  VideoPlayer.createOrReplace(sideScreenLeft, {
+    src: videoSource,
+    playing: true,
+    volume: 1,
+    loop: true
+  })
+
+  VideoPlayer.createOrReplace(sideScreenRight, {
+    src: videoSource,
+    playing: true,
+    volume: 1,
+    loop: true
+  })
+}
+
+// Format time utility
+export function formatTime(seconds: number): string {
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+  const remainingSeconds = seconds % 60
+  return `${hours.toString().padStart(2, '0')}:${minutes
+    .toString()
+    .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
+}

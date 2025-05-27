@@ -1,11 +1,10 @@
-import { UiCanvasInformation, engine } from "@dcl/ecs";
 import { Color4, Vector3 } from "@dcl/ecs-math";
 import { currentArtworkId, findArtworkById, hoverVisible, toggleHover } from "./Art/artHover";
 import { wordWrap, tieredModalTextWrapScale, breakLines, tieredFontScale, canvasInfo } from "./helperFunctions";
 import ReactEcs, { Label, ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
 
 
-const Max_Chars = 38
+const Max_Chars = 60
 const titleFontSize = 16;
 const descriptionFontSize = 10
 
@@ -25,72 +24,62 @@ export function artDetailsUI() {
     const artwork = findArtworkById(currentArtworkId);
     if (artwork && artwork.visible) {
       const { title, description } = artwork;
-      const artTitleWrap = wordWrap(title, 20 * tieredModalTextWrapScale, 6)
-      const artDescriptionWrap = breakLines(description, Max_Chars)
 
+      const artTitleWrap = wordWrap(title, Max_Chars, 1); // title: 1 line
+      const artDescriptionWrap = breakLines(description, Max_Chars); // description: up to 55 chars per line
 
       return (
-        <UiEntity key={'art-main'}
+        <UiEntity
+          key="art-main"
           uiTransform={{
-            height: `${canvasInfo.height * .15}`,
-            width: `${canvasInfo.width * .1}`,
+            height: `${canvasInfo.height * 0.15}`,
+            width: `${canvasInfo.width * 0.15}`, // Wider to accommodate text
             positionType: 'absolute',
-            position: `5% 0 0 90%`,
+            position: `5% 0 0 88%`,
             flexDirection: 'column',
-            alignItems: 'center',
-            maxHeight: `${canvasInfo.height * .15}`,
-            maxWidth: `${canvasInfo.width * .1}`,
-
-
+            alignItems: 'flex-start',
+            justifyContent: 'center',
           }}
           onMouseDown={toggleHover}
           uiBackground={{
             texture: { src: artFrame },
-            textureMode: "stretch", uvs: [1, 1, 1, 1]
+            textureMode: 'stretch',
+            uvs: [1, 1, 1, 1]
           }}
-
         >
-          {/* Label displaying Art Title */}
-          <Label key={'artTitle'}
+          <Label
+            key="artTitle"
             value={artTitleWrap}
             fontSize={titleFontSize * tieredFontScale}
             font={titleFont}
-            textAlign="middle-left"
+            textAlign="top-left"
             uiTransform={{
-              width: 'auto',
-              height: 'auto',
-              alignSelf: 'stretch',
-              margin: `-10px 0px 0px ${canvasInfo.width * .0075}`,
-              positionType: 'absolute',
-              position: '-25% 0 0 0%',
+              width: '100%',
+              height: '25%',
+              margin: '45px 10px 0 10px',
+              alignSelf: 'flex-start',
             }}
             color={titleColor}
             onMouseDown={toggleHover}
-
           />
-          {/* Label displaying Art Details */}
-          <Label key={'artDetails'}
+          <Label
+            key="artDetails"
             value={artDescriptionWrap}
             fontSize={descriptionFontSize * tieredFontScale}
             font={descriptionFont}
-            textAlign="middle-left"
+            textAlign="top-left"
             uiTransform={{
-              width: 'auto',
-              height: 'auto',
-              alignSelf: 'stretch',
-              margin: `10px 0px 0px ${canvasInfo.width * .0075}`,
-              positionType: 'absolute',
-              position: '15% 0 0 0',
+              width: '100%',
+              height: '75%',
+              margin: '0px 10px 10px 10px',
+              alignSelf: 'flex-start',
             }}
             color={descriptionColor}
             onMouseUp={toggleHover}
           />
         </UiEntity>
-
-
       );
-
     }
   }
-
+  return null;
 }

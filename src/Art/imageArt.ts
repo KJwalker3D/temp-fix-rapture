@@ -334,42 +334,37 @@ export function createImageArt(
   position: Vector3,
   rotation: Vector3,
   scale: Vector3,
-  image: string, // can be path to image file or url to hosted image
+  image: string,
   hoverText: string,
   url: string,
   hasAlpha: boolean
 ) {
-
   let entity = engine.addEntity()
+
   Transform.create(entity, {
     position: position,
     rotation: Quaternion.fromEulerDegrees(rotation.x, rotation.y, rotation.z),
     scale: scale
   })
+
   MeshRenderer.setPlane(entity)
   MeshCollider.setPlane(entity)
 
   pointerEventsSystem.onPointerDown(
-    {
-      entity: entity,
-      opts: {
-        button: InputAction.IA_POINTER,
-        hoverText: hoverText,
-        maxDistance: 16
-      }
+    entity,
+    () => {
+      openExternalUrl({ url })
     },
-    function () {
-      openExternalUrl({
-        url: url
-      })
+    {
+      button: InputAction.IA_POINTER,
+      hoverText,
+      maxDistance: 16
     }
   )
 
-  const imageMaterial = Material.Texture.Common({ src: image });
-
+  const imageMaterial = Material.Texture.Common({ src: image })
 
   if (!hasAlpha) {
-
     Material.setPbrMaterial(entity, {
       texture: imageMaterial,
       roughness: 1,
@@ -377,12 +372,9 @@ export function createImageArt(
       metallic: 0,
       emissiveColor: Color3.White(),
       emissiveIntensity: 0.5,
-      emissiveTexture: imageMaterial,
+      emissiveTexture: imageMaterial
     })
-  }
-
-  else if (hasAlpha) {
-
+  } else {
     Material.setPbrMaterial(entity, {
       texture: imageMaterial,
       roughness: 1,
@@ -393,8 +385,7 @@ export function createImageArt(
       alphaTest: 0.5,
       emissiveColor: Color3.White(),
       emissiveIntensity: 1,
-      emissiveTexture: imageMaterial,
-
+      emissiveTexture: imageMaterial
     })
   }
 

@@ -1,27 +1,22 @@
-import { Vector3, Quaternion } from '@dcl/sdk/math';
+import { Vector3 } from '@dcl/sdk/math';
 import { Entity, Transform, engine } from '@dcl/sdk/ecs';
 import * as utils from '@dcl-sdk/utils';
 import { createVideoArt, videoCollection } from './Art/videoArt';
 import { createImageArt, imageArtCollection } from './Art/imageArt';
 import { createKineticArt, kineticArtCollection } from './Art/kineticArt';
 import {
-  addBartenderManager,
   addDanceManager,
   addGalleryManager_1,
   addGalleryManager_2,
   addSitManager,
   startNpcDance,
-  removeBartenderNpcs,
   removeDanceNpcs,
   removeGalleryNpcs_1,
   removeGalleryNpcs_2,
   removeSitNpcs,
-  spawnNPCsBasedOnRoom,
-  removeNPCsFromRoom,
   npcArrays
 } from './npcs'
-import { createStream, stopStream, toggleStream } from './playlist';
-import { createFrontScreens, toggleFrontScreens, turnOffFrontScreens } from './frontPosters';
+import { stopStream, toggleStream } from './playlist';
 import { createDJ, removeDJ } from './dj';
 import { isParty } from './config';
 import { addEmoters, toggleEmoters, removeEmoters } from './emoteFurnis';
